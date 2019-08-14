@@ -199,7 +199,6 @@
       
         <p>[TOC]</p>
 <h1 id="课堂笔记"><a href="#课堂笔记" class="headerlink" title="课堂笔记"></a>课堂笔记</h1><h2 id="作为神经网络的逻辑回归"><a href="#作为神经网络的逻辑回归" class="headerlink" title="作为神经网络的逻辑回归"></a>作为神经网络的逻辑回归</h2><h4 id="·二元分类算法：输入一张图片——判断——输出0-1"><a href="#·二元分类算法：输入一张图片——判断——输出0-1" class="headerlink" title="·二元分类算法：输入一张图片——判断——输出0/1"></a>·二元分类算法：输入一张图片——判断——输出0/1</h4><a id="more"></a>
-
 <p>【计算机存储图像】x是一个维度n(x)=n✖n✖3的特征向量，y是标签0/1。</p>
 <p><img src="https://s2.ax1x.com/2019/08/11/ev5OAK.png" alt></p>
 <p><strong>总共有m个训练样本</strong><br><img src="https://s2.ax1x.com/2019/08/11/ev5XtO.png" alt></p>
@@ -214,15 +213,11 @@
 <h4 id="·导数"><a href="#·导数" class="headerlink" title="·导数"></a>·导数</h4><p><img src="https://s2.ax1x.com/2019/08/11/ev5q76.png" alt="ev5q76.png"></p>
 <p><strong>设计双重循环</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">for i=1 to m</span><br><span class="line">&#123;z(i)=WtX(i)+b;</span><br><span class="line">a(i)=sigma(z(i));</span><br><span class="line">J+=-[y(i)loga(i)+(1-y(i))log(1-a(i))];</span><br><span class="line">dz(i)=a(i)-y(i);</span><br><span class="line">&#123;for j=1 to n</span><br><span class="line">dw(j)+=xj(i)dz(i);&#125;</span><br><span class="line">db+=dz(i);&#125;</span><br><span class="line"></span><br><span class="line">J/=m;</span><br><span class="line">&#123;for j=1 to n</span><br><span class="line">dw(j)/=m;&#125;</span><br><span class="line">db/=m;</span><br></pre></td></tr></table></figure>
-
 <h2 id="Python和向量法"><a href="#Python和向量法" class="headerlink" title="Python和向量法"></a>Python和向量法</h2><h4 id="·向量化"><a href="#·向量化" class="headerlink" title="·向量化"></a>·向量化</h4><p><strong><em>运用Numpy内置函数</em></strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">a= np.random.rand(<span class="number">1000000</span>)</span><br><span class="line">b= np.random.rand(<span class="number">1000000</span>)</span><br><span class="line"></span><br><span class="line">c = np.dot(a,b)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000000</span>):</span><br><span class="line">    c +=a[i]*b[i]</span><br></pre></td></tr></table></figure>
-
 <p>向量化更快 避免使用显式for循环</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">u = np.zeros((n,<span class="number">1</span>))</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">u = np.exp(v)</span><br><span class="line">u = np.log(v)</span><br><span class="line">u = np.abs(v)</span><br><span class="line">u = np.maxnum (v,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-
 <h4 id="·将双重循环省略"><a href="#·将双重循环省略" class="headerlink" title="·将双重循环省略"></a>·将双重循环省略</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//<span class="keyword">for</span> i <span class="keyword">in</span> range(num): 迭代次数</span><br><span class="line">Z = np.dot(w.T,x)+b</span><br><span class="line">A = sigma(Z)</span><br><span class="line">dZ = A - Y</span><br><span class="line">dw = <span class="number">1</span>/m XdZt</span><br><span class="line">db = <span class="number">1</span>/m np.sum(dZ)</span><br><span class="line">w = w - αdw</span><br><span class="line">b = b - αdb</span><br></pre></td></tr></table></figure>
-
 <h4 id="·Python中的广播"><a href="#·Python中的广播" class="headerlink" title="·Python中的广播"></a>·Python中的广播</h4><p><strong>广播的规则:</strong></p>
 <ul>
 <li>让所有输入数组都向其中形状最长的数组看齐，形状中不足的部分都通过在前面加 1 补齐。</li>
@@ -552,20 +547,5 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
