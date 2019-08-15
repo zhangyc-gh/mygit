@@ -329,8 +329,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>[TOC]</p>
-<h1 id="课堂笔记"><a href="#课堂笔记" class="headerlink" title="课堂笔记"></a>课堂笔记</h1><h2 id="作为神经网络的逻辑回归"><a href="#作为神经网络的逻辑回归" class="headerlink" title="作为神经网络的逻辑回归"></a>作为神经网络的逻辑回归</h2><h4 id="·二元分类算法：输入一张图片——判断——输出0-1"><a href="#·二元分类算法：输入一张图片——判断——输出0-1" class="headerlink" title="·二元分类算法：输入一张图片——判断——输出0/1"></a>·二元分类算法：输入一张图片——判断——输出0/1</h4>
+        <h1 id="课堂笔记"><a href="#课堂笔记" class="headerlink" title="课堂笔记"></a>课堂笔记</h1><h2 id="作为神经网络的逻辑回归"><a href="#作为神经网络的逻辑回归" class="headerlink" title="作为神经网络的逻辑回归"></a>作为神经网络的逻辑回归</h2><h4 id="·二元分类算法：输入一张图片——判断——输出0-1"><a href="#·二元分类算法：输入一张图片——判断——输出0-1" class="headerlink" title="·二元分类算法：输入一张图片——判断——输出0/1"></a>·二元分类算法：输入一张图片——判断——输出0/1</h4>
         
           <a class="article-more-a" href="/2019/08/11/deeplearning2/#more">more >></a>
         
@@ -559,7 +558,7 @@
     </div>
     <script>
 	var yiliaConfig = {
-		mathjax: true,
+		mathjax: [object Object],
 		isHome: true,
 		isPost: false,
 		isArchive: false,
@@ -700,5 +699,20 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
