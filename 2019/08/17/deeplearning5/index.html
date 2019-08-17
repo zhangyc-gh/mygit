@@ -6,15 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 19暑假深度学习 | zero to one</title>
+  <title>deeplearning学习笔记5 超参数调整和正则化 | zero to one</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="zero to one">
-<meta property="og:url" content="http://yoursite.com/tags/19暑假深度学习/index.html">
+  <meta name="description" content="训练/开发/测试集">
+<meta name="keywords" content="19暑假深度学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="deeplearning学习笔记5 超参数调整和正则化">
+<meta property="og:url" content="http://yoursite.com/2019/08/17/deeplearning5/index.html">
 <meta property="og:site_name" content="zero to one">
+<meta property="og:description" content="训练/开发/测试集">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/18/mKBMtJ.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/18/mKBKk4.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/18/mKBn7F.jpg">
+<meta property="og:updated_time" content="2019-08-17T16:31:33.032Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zero to one">
+<meta name="twitter:title" content="deeplearning学习笔记5 超参数调整和正则化">
+<meta name="twitter:description" content="训练/开发/测试集">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/08/18/mKBMtJ.jpg">
   
     <link rel="alternative" href="/atom.xml" title="zero to one" type="application/atom+xml">
   
@@ -136,36 +145,185 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-deeplearning5" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      deeplearning学习笔记5 超参数调整和正则化
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/17/deeplearning5/" class="archive-article-date">
+
+        
+        <a href="/2019/08/17/deeplearning5/" class="archive-article-date">
   	<time datetime="2019-08-17T13:20:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-17</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/17/deeplearning5/">deeplearning学习笔记5 超参数调整和正则化</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="训练-开发-测试集"><a href="#训练-开发-测试集" class="headerlink" title="训练/开发/测试集"></a>训练/开发/测试集</h3><a id="more"></a>
+<p>70/30（60/20/20）$\to$ 98/1/1（99.5/0.25/0.25）数据增长</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">训练集train</th>
+<th style="text-align:center">开发集dev</th>
+<th style="text-align:center">测试集test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">训练算法</td>
+<td style="text-align:center">选择模型</td>
+<td style="text-align:center">评估结果</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>开发集和测试集数据最好分布相同；可以没有测试集（没有无偏估计）。</p>
+<h3 id="偏差（偏离度）和方差（集中度）"><a href="#偏差（偏离度）和方差（集中度）" class="headerlink" title="偏差（偏离度）和方差（集中度）"></a>偏差（偏离度）和方差（集中度）</h3><p><a href="https://imgchr.com/i/mKBMtJ" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/18/mKBMtJ.jpg" alt="mKBMtJ.jpg"></a></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">训练集（%）</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">15</th>
+<th style="text-align:center">15</th>
+<th style="text-align:center">0.5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">开发集（%）</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">16</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">方差</td>
+<td style="text-align:center">高</td>
+<td style="text-align:center">低</td>
+<td style="text-align:center">高</td>
+<td style="text-align:center">低</td>
+</tr>
+<tr>
+<td style="text-align:center">偏差</td>
+<td style="text-align:center">低</td>
+<td style="text-align:center">高</td>
+<td style="text-align:center">高</td>
+<td style="text-align:center">低</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>前提：理想误差（贝叶斯误差）= 0%；训练集和开发集来自同一分布。</p>
+<p><a href="https://imgchr.com/i/mKBKk4" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/18/mKBKk4.jpg" alt="mKBKk4.jpg"></a></p>
+<h3 id="机器学习基本原则"><a href="#机器学习基本原则" class="headerlink" title="机器学习基本原则"></a>机器学习基本原则</h3><script type="math/tex; mode=display">
+高偏差\to更大网络/更长时间/（更好结构）\\
+高方差\to 更多数据/正则化/（更好结构）</script><h4 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h4><script type="math/tex; mode=display">
+\require{enclose}
+J(w,b) = \frac 1m \sum_{i=1}^mL(\hat{y}^{(i)},y^{(i)}+\frac \lambda{2m}||w||^2_2+\enclose{horizontalstrike,updiagonalstrike}{\frac \lambda{2m}b^2y}\\
+L_{2regularzation} = ||w||^2_2 = \sum_{j=1}^{n_x}w^2_j = w^Tw</script><p>L2正则化（权重衰减）：$1-\alpha*\frac \lambda m$</p>
+<h4 id="为什么正则化防止过拟合？"><a href="#为什么正则化防止过拟合？" class="headerlink" title="为什么正则化防止过拟合？"></a>为什么正则化防止过拟合？</h4><p>考虑极限（$ w\to0$） 时：</p>
+<ul>
+<li><p>隐藏单元作用很小；</p>
+</li>
+<li><p>激活函数$g(z) = tanh(z)$ 在z等于0附近的值时，约为线性函数，整个网络就是线性的。</p>
+</li>
+</ul>
+<h4 id="随机失活正则化"><a href="#随机失活正则化" class="headerlink" title="随机失活正则化"></a>随机失活正则化</h4><p>反向随机失活</p>
+<script type="math/tex; mode=display">
+d3 = np.random.rand(a3.shape[0],a3.shape[1])<keep.prob\\
+a3=np.multply(a3,d3)\\
+a3=\frac {a3}{keep.prob} [保持期望不变]</script><h4 id="理解随机失活"><a href="#理解随机失活" class="headerlink" title="理解随机失活"></a>理解随机失活</h4><p>对每个输入都给一个小权重，防止过拟合；</p>
+<p>可以对每一层设置不同留存率，参数多低留存率。</p>
+<p>缺点：除非过拟合，不要考虑随机失活随机失活；不能通过绘图确定代价函数。</p>
+<h4 id="其他减少过拟合的方法"><a href="#其他减少过拟合的方法" class="headerlink" title="其他减少过拟合的方法"></a>其他减少过拟合的方法</h4><ul>
+<li><p>图片的翻转/截取/扭曲</p>
+</li>
+<li><p>做早终止法</p>
+</li>
+</ul>
+<h3 id="归一化输入特征"><a href="#归一化输入特征" class="headerlink" title="归一化输入特征"></a>归一化输入特征</h3><script type="math/tex; mode=display">
+\mu=\frac1m\sum^m_{i=1}x^{(i)}\\
+x=x-\mu\\
+\sigma^2=\frac1m\sum^m_{i=1}x^{(i)}**2</script><p><a href="https://imgchr.com/i/mKBn7F" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/18/mKBn7F.jpg" alt="mKBn7F.jpg"></a></p>
+<p>更方便优化</p>
+<h3 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h3><p>非常深的神经网络极有可能出现梯度消失/爆炸</p>
+<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><script type="math/tex; mode=display">
+W^{[L]}=np.randon.randn(shape)*np.sqrt(\frac2{n^{[L-1]}})</script><p>取双侧差值</p>
+<script type="math/tex; mode=display">
+\frac {f(\theta+\epsilon)-f(\theta-\epsilon)}{2\epsilon} \approx g(\theta)</script><h4 id="梯度检验"><a href="#梯度检验" class="headerlink" title="梯度检验"></a>梯度检验</h4><script type="math/tex; mode=display">
+d\Theta_{appro}^{[i]}=\frac{J(\Theta_1,...,\Theta_i+\epsilon,...)-J(\Theta_1,...,\Theta_i,...)}{2\epsilon}\\
+\approx d\Theta[i]=\frac{dJ}{d\Theta_i}</script><p>check$\frac{||d\Theta_{appro}-d\Theta||_2}{||d\Theta_{appro}||_2+||d\Theta||_2}$</p>
+<p>两个向量的每个分量的差的平方之和再开方（欧几里得距离）。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>距离</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$10^{-7}$</td>
+<td>正确</td>
+</tr>
+<tr>
+<td>$10^{-5}$</td>
+<td>确定每个向量的每个分量</td>
+</tr>
+<tr>
+<td>$10^{-3}$</td>
+<td>代码有误？</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h4><blockquote>
+<p>Don’t use in training - only in debug.</p>
+<p>If algorithm failed grad check, look at components to try to identify bug.</p>
+<p>Remember regularization.</p>
+<p>Doesn’t work with dropout.</p>
+<p>Run at random initialization; perhaps again after some training.</p>
+</blockquote>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -177,171 +335,119 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/17/deeplearning5/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/15/deeplearning4/" class="archive-article-date">
-  	<time datetime="2019-08-15T12:30:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/15/deeplearning4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">deeplearning学习笔记4 深度神经网络</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/15/deeplearning4/">deeplearning学习笔记4 深度神经网络</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#训练-开发-测试集"><span class="toc-number">1.</span> <span class="toc-text">训练/开发/测试集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#偏差（偏离度）和方差（集中度）"><span class="toc-number">2.</span> <span class="toc-text">偏差（偏离度）和方差（集中度）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#机器学习基本原则"><span class="toc-number">3.</span> <span class="toc-text">机器学习基本原则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#正则化"><span class="toc-number">3.1.</span> <span class="toc-text">正则化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么正则化防止过拟合？"><span class="toc-number">3.2.</span> <span class="toc-text">为什么正则化防止过拟合？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#随机失活正则化"><span class="toc-number">3.3.</span> <span class="toc-text">随机失活正则化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#理解随机失活"><span class="toc-number">3.4.</span> <span class="toc-text">理解随机失活</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#其他减少过拟合的方法"><span class="toc-number">3.5.</span> <span class="toc-text">其他减少过拟合的方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#归一化输入特征"><span class="toc-number">4.</span> <span class="toc-text">归一化输入特征</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度"><span class="toc-number">5.</span> <span class="toc-text">梯度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#初始化"><span class="toc-number">5.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#梯度检验"><span class="toc-number">5.2.</span> <span class="toc-text">梯度检验</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#技巧"><span class="toc-number">5.3.</span> <span class="toc-text">技巧</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/13/deeplearning3/" class="archive-article-date">
-  	<time datetime="2019-08-13T08:32:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-13</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/13/deeplearning3/">deeplearning学习笔记3 浅层神经网络</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/11/deeplearning2/" class="archive-article-date">
-  	<time datetime="2019-08-11T11:19:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/11/deeplearning2/">deeplearning学习笔记2 神经网络基础知识</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/09/deeplearning1/" class="archive-article-date">
-  	<time datetime="2019-08-09T13:46:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/09/deeplearning1/">deeplearning学习笔记1 引言</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -364,9 +470,9 @@
 	var yiliaConfig = {
 		mathjax: [object Object],
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
