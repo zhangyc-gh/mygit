@@ -6,15 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/8 | zero to one</title>
+  <title>deeplearning学习笔记6 优化深度神经网络 | zero to one</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="zero to one">
-<meta property="og:url" content="http://yoursite.com/archives/2019/08/index.html">
+  <meta name="description" content="$\color{brown}{小批量梯度下降法}$">
+<meta name="keywords" content="19暑假深度学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="deeplearning学习笔记6 优化深度神经网络">
+<meta property="og:url" content="http://yoursite.com/2019/08/19/deeplearning6/index.html">
 <meta property="og:site_name" content="zero to one">
+<meta property="og:description" content="$\color{brown}{小批量梯度下降法}$">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/20/m8rt6e.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/20/m8sY40.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/20/m8sdvF.jpg">
+<meta property="og:updated_time" content="2019-08-19T17:47:30.725Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zero to one">
+<meta name="twitter:title" content="deeplearning学习笔记6 优化深度神经网络">
+<meta name="twitter:description" content="$\color{brown}{小批量梯度下降法}$">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/08/20/m8rt6e.jpg">
   
     <link rel="alternative" href="/atom.xml" title="zero to one" type="application/atom+xml">
   
@@ -144,37 +153,126 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-deeplearning6" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      deeplearning学习笔记6 优化深度神经网络
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+
+        
+                <!-- 不蒜子统计 -->        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次        </span>
 <a href="/2019/08/19/deeplearning6/" class="archive-article-date">
   	<time datetime="2019-08-19T13:57:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-19</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/19/deeplearning6/">deeplearning学习笔记6 优化深度神经网络</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="color-brown-小批量梯度下降法"><a href="#color-brown-小批量梯度下降法" class="headerlink" title="$\color{brown}{小批量梯度下降法}$"></a>$\color{brown}{小批量梯度下降法}$</h2><a id="more"></a>
+<h4 id="color-brown-why-color-brown-mini-batch"><a href="#color-brown-why-color-brown-mini-batch" class="headerlink" title="$\color{brown}{why}$ $\color{brown}{mini-batch?}$"></a>$\color{brown}{why}$ $\color{brown}{mini-batch?}$</h4><p>样本过大$\to$受矩阵运算速度限制$\to$分成子集分别训练</p>
+<h4 id="color-brown-how-color-brown-to"><a href="#color-brown-how-color-brown-to" class="headerlink" title="$\color{brown}{how} $ $\color{brown}{to?}$"></a>$\color{brown}{how} $ $\color{brown}{to?}$</h4><p>for  t=1 to T</p>
+<p>Forward  Propagation<br>Compute  Cost  Function<br>Backward   Propagation</p>
+<p>$W^{[t]}:=W^{[t]}-  \alpha .dW^{[t]}$<br>$b^{[t]}:=b^{[t]}- \alpha .db^{[t]}$</p>
+<p>$\color{brown}{cost}$ $\color{brown}{function?}$</p>
+<h2 id="color-brown-超参数mini-batch-size选取"><a href="#color-brown-超参数mini-batch-size选取" class="headerlink" title="$\color{brown}{超参数mini-batch size选取}$"></a>$\color{brown}{超参数mini-batch size选取}$</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>mini-batch size</th>
+<th>子集</th>
+<th>情况</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>m</td>
+<td>1个</td>
+<td>平稳接近最小猪，前进速度慢</td>
+</tr>
+<tr>
+<td>1</td>
+<td>m个</td>
+<td>前进速度快，路线曲折</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="color-brown-选取原则"><a href="#color-brown-选取原则" class="headerlink" title="$\color{brown}{选取原则}$"></a>$\color{brown}{选取原则}$</h4><ul>
+<li>m$\leq$2000,size=m;</li>
+<li>size为2的幂级数，64、128、256、512。</li>
+</ul>
+<h2 id="color-brown-动态梯度下降算法"><a href="#color-brown-动态梯度下降算法" class="headerlink" title="$\color{brown}{动态梯度下降算法}$"></a>$\color{brown}{动态梯度下降算法}$</h2><h5 id="color-brown-指数加权平均"><a href="#color-brown-指数加权平均" class="headerlink" title="$\color{brown}{指数加权平均}$"></a>$\color{brown}{指数加权平均}$</h5><p>一般形式：$V_t=\beta V_{t-1}+(1-\beta)\theta_t$</p>
+<p><a href="https://imgchr.com/i/m8rt6e" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/20/m8rt6e.jpg" alt="m8rt6e.jpg"></a></p>
+<p>$\frac 1{1-\beta}$天的平均气温。$\beta$反应延缓程度。</p>
+<h5 id="color-brown-偏差修正"><a href="#color-brown-偏差修正" class="headerlink" title="$\color{brown}{偏差修正}$"></a>$\color{brown}{偏差修正}$</h5><p>最开始的几天：$V_t=\frac{V_t}{1-\beta^t}$</p>
+<h2 id="color-brown-均方根传递优化算法"><a href="#color-brown-均方根传递优化算法" class="headerlink" title="$\color{brown}{均方根传递优化算法}$"></a>$\color{brown}{均方根传递优化算法}$</h2><p><img src="https://s2.ax1x.com/2019/08/20/m8sY40.jpg" alt="m8sY40.jpg"></p>
+<p>纵向：变化慢；横向：变化快。</p>
+<h2 id="color-brown-自适应矩估计优化算法"><a href="#color-brown-自适应矩估计优化算法" class="headerlink" title="$\color{brown}{自适应矩估计优化算法}$"></a>$\color{brown}{自适应矩估计优化算法}$</h2><p><img src="https://s2.ax1x.com/2019/08/20/m8sdvF.jpg" alt="m8sdvF.jpg"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$\beta _1$</td>
+<td style="text-align:center">0.9</td>
+</tr>
+<tr>
+<td style="text-align:center">$\beta _2$</td>
+<td style="text-align:center">0.999</td>
+</tr>
+<tr>
+<td style="text-align:center">$\epsilon$</td>
+<td style="text-align:center">$10^{-8}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="color-brown-学习率衰减"><a href="#color-brown-学习率衰减" class="headerlink" title="$\color{brown}{学习率衰减}$"></a>$\color{brown}{学习率衰减}$</h2><p>在接近最优解时，减小步长，减小$\alpha$。</p>
+<h2 id="color-brown-局部最优-amp-停滞区"><a href="#color-brown-局部最优-amp-停滞区" class="headerlink" title="$\color{brown}{局部最优\&amp;停滞区}$"></a>$\color{brown}{局部最优\&amp;停滞区}$</h2><p>​        在神经网络中参数很多的情况下，所有参数梯度为零的点很可能是鞍点。类似马鞍状的停滞区会降低神经网络学习速度。停滞区是梯度接近于零的平缓区域，在停滞区上梯度很小，前进缓慢，到达鞍点需要很长时间。</p>
+<h5 id="color-brown-总结"><a href="#color-brown-总结" class="headerlink" title="$\color{brown}{总结}$"></a>$\color{brown}{总结}$</h5><ul>
+<li>强大的神经网络一般不太可能陷入局部最优处；</li>
+<li>停滞区会使梯度下降变慢，降低学习速度。动量梯度下降、均方根传递优化算法、自适应矩估计优化算法算法都能有效解决停滞区下降过慢的问题。</li>
+</ul>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您讷~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -186,253 +284,119 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/19/deeplearning6/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/17/deeplearning5/" class="archive-article-date">
-  	<time datetime="2019-08-17T13:20:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-17</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/17/deeplearning5/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">deeplearning学习笔记5 超参数调整和正则化</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/17/deeplearning5/">deeplearning学习笔记5 超参数调整和正则化</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-小批量梯度下降法"><span class="toc-number">1.</span> <span class="toc-text">$\color{brown}{小批量梯度下降法}$</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#color-brown-why-color-brown-mini-batch"><span class="toc-number">1.0.1.</span> <span class="toc-text">$\color{brown}{why}$ $\color{brown}{mini-batch?}$</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#color-brown-how-color-brown-to"><span class="toc-number">1.0.2.</span> <span class="toc-text">$\color{brown}{how} $ $\color{brown}{to?}$</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-超参数mini-batch-size选取"><span class="toc-number">2.</span> <span class="toc-text">$\color{brown}{超参数mini-batch size选取}$</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#color-brown-选取原则"><span class="toc-number">2.0.1.</span> <span class="toc-text">$\color{brown}{选取原则}$</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-动态梯度下降算法"><span class="toc-number">3.</span> <span class="toc-text">$\color{brown}{动态梯度下降算法}$</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#color-brown-指数加权平均"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">$\color{brown}{指数加权平均}$</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#color-brown-偏差修正"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">$\color{brown}{偏差修正}$</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-均方根传递优化算法"><span class="toc-number">4.</span> <span class="toc-text">$\color{brown}{均方根传递优化算法}$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-自适应矩估计优化算法"><span class="toc-number">5.</span> <span class="toc-text">$\color{brown}{自适应矩估计优化算法}$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-学习率衰减"><span class="toc-number">6.</span> <span class="toc-text">$\color{brown}{学习率衰减}$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-局部最优-amp-停滞区"><span class="toc-number">7.</span> <span class="toc-text">$\color{brown}{局部最优\&amp;停滞区}$</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#color-brown-总结"><span class="toc-number">7.0.0.1.</span> <span class="toc-text">$\color{brown}{总结}$</span></a></li></ol></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/15/deeplearning4/" class="archive-article-date">
-  	<time datetime="2019-08-15T12:30:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/15/deeplearning4/">deeplearning学习笔记4 深度神经网络</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/13/deeplearning3/" class="archive-article-date">
-  	<time datetime="2019-08-13T08:32:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/13/deeplearning3/">deeplearning学习笔记3 浅层神经网络</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/11/deeplearning2/" class="archive-article-date">
-  	<time datetime="2019-08-11T11:19:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/11/deeplearning2/">deeplearning学习笔记2 神经网络基础知识</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/09/deeplearning1/" class="archive-article-date">
-  	<time datetime="2019-08-09T13:46:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/09/deeplearning1/">deeplearning学习笔记1 引言</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/08/huihuitql/" class="archive-article-date">
-  	<time datetime="2019-08-08T14:07:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/08/huihuitql/">喵辉部长是男神</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">上辈子是道数学题系列</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -466,8 +430,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
