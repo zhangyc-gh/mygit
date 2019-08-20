@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/08/20/m8rt6e.jpg">
 <meta property="og:image" content="https://s2.ax1x.com/2019/08/20/m8sY40.jpg">
 <meta property="og:image" content="https://s2.ax1x.com/2019/08/20/m8sdvF.jpg">
-<meta property="og:updated_time" content="2019-08-19T17:49:06.304Z">
+<meta property="og:updated_time" content="2019-08-20T00:18:19.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="deeplearning学习笔记6 优化深度神经网络">
 <meta name="twitter:description" content="$\color{brown}{小批量梯度下降法}$">
@@ -175,12 +175,11 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="color-brown-小批量梯度下降法"><a href="#color-brown-小批量梯度下降法" class="headerlink" title="$\color{brown}{小批量梯度下降法}$"></a>$\color{brown}{小批量梯度下降法}$</h2><a id="more"></a>
-<h4 id="color-brown-why-color-brown-mini-batch"><a href="#color-brown-why-color-brown-mini-batch" class="headerlink" title="$\color{brown}{why}$ $\color{brown}{mini-batch?}$"></a>$\color{brown}{why}$ $\color{brown}{mini-batch?}$</h4><p>样本过大$\to$受矩阵运算速度限制$\to$分成子集分别训练</p>
-<h4 id="color-brown-how-color-brown-to"><a href="#color-brown-how-color-brown-to" class="headerlink" title="$\color{brown}{how} $ $\color{brown}{to?}$"></a>$\color{brown}{how} $ $\color{brown}{to?}$</h4><p>for  t=1 to T</p>
+<h3 id="color-brown-why-color-brown-mini-batch"><a href="#color-brown-why-color-brown-mini-batch" class="headerlink" title="$\color{brown}{why}$ $\color{brown}{mini-batch?}$"></a>$\color{brown}{why}$ $\color{brown}{mini-batch?}$</h3><p>样本过大$\to$受矩阵运算速度限制$\to$分成子集分别训练</p>
+<h3 id="color-brown-how-color-brown-to"><a href="#color-brown-how-color-brown-to" class="headerlink" title="$\color{brown}{how} $ $\color{brown}{to?}$"></a>$\color{brown}{how} $ $\color{brown}{to?}$</h3><p>for  t=1 to T</p>
 <p>Forward  Propagation<br>Compute  Cost  Function<br>Backward   Propagation</p>
 <p>$W^{[t]}:=W^{[t]}-  \alpha .dW^{[t]}$<br>$b^{[t]}:=b^{[t]}- \alpha .db^{[t]}$</p>
-<p>$\color{brown}{cost}$ $\color{brown}{function?}$</p>
-<h2 id="color-brown-超参数mini-batch-size选取"><a href="#color-brown-超参数mini-batch-size选取" class="headerlink" title="$\color{brown}{超参数mini-batch size选取}$"></a>$\color{brown}{超参数mini-batch size选取}$</h2><div class="table-container">
+<h3 id="color-brown-cost-color-brown-function"><a href="#color-brown-cost-color-brown-function" class="headerlink" title="$\color{brown}{cost}$ $\color{brown}{function?}$"></a>$\color{brown}{cost}$ $\color{brown}{function?}$</h3><h2 id="color-brown-超参数mini-batch-size选取"><a href="#color-brown-超参数mini-batch-size选取" class="headerlink" title="$\color{brown}{超参数mini-batch size选取}$"></a>$\color{brown}{超参数mini-batch size选取}$</h2><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -203,14 +202,14 @@
 </tbody>
 </table>
 </div>
-<h4 id="color-brown-选取原则"><a href="#color-brown-选取原则" class="headerlink" title="$\color{brown}{选取原则}$"></a>$\color{brown}{选取原则}$</h4><ul>
+<h3 id="color-brown-选取原则"><a href="#color-brown-选取原则" class="headerlink" title="$\color{brown}{选取原则}$"></a>$\color{brown}{选取原则}$</h3><ul>
 <li>m$\leq$2000,size=m;</li>
 <li>size为2的幂级数，64、128、256、512。</li>
 </ul>
-<h2 id="color-brown-动态梯度下降算法"><a href="#color-brown-动态梯度下降算法" class="headerlink" title="$\color{brown}{动态梯度下降算法}$"></a>$\color{brown}{动态梯度下降算法}$</h2><h5 id="color-brown-指数加权平均"><a href="#color-brown-指数加权平均" class="headerlink" title="$\color{brown}{指数加权平均}$"></a>$\color{brown}{指数加权平均}$</h5><p>一般形式：$V_t=\beta V_{t-1}+(1-\beta)\theta_t$</p>
+<h2 id="color-brown-动态梯度下降算法"><a href="#color-brown-动态梯度下降算法" class="headerlink" title="$\color{brown}{动态梯度下降算法}$"></a>$\color{brown}{动态梯度下降算法}$</h2><h3 id="color-brown-指数加权平均"><a href="#color-brown-指数加权平均" class="headerlink" title="$\color{brown}{指数加权平均}$"></a>$\color{brown}{指数加权平均}$</h3><p>一般形式：$V_t=\beta V_{t-1}+(1-\beta)\theta_t$</p>
 <p><a href="https://imgchr.com/i/m8rt6e" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/20/m8rt6e.jpg" alt="m8rt6e.jpg"></a></p>
 <p>$\frac 1{1-\beta}$天的平均气温。$\beta$反应延缓程度。</p>
-<h5 id="color-brown-偏差修正"><a href="#color-brown-偏差修正" class="headerlink" title="$\color{brown}{偏差修正}$"></a>$\color{brown}{偏差修正}$</h5><p>最开始的几天：$V_t=\frac{V_t}{1-\beta^t}$</p>
+<h3 id="color-brown-偏差修正"><a href="#color-brown-偏差修正" class="headerlink" title="$\color{brown}{偏差修正}$"></a>$\color{brown}{偏差修正}$</h3><p>最开始的几天：$V_t=\frac{V_t}{1-\beta^t}$</p>
 <h2 id="color-brown-均方根传递优化算法"><a href="#color-brown-均方根传递优化算法" class="headerlink" title="$\color{brown}{均方根传递优化算法}$"></a>$\color{brown}{均方根传递优化算法}$</h2><p><img src="https://s2.ax1x.com/2019/08/20/m8sY40.jpg" alt="m8sY40.jpg"></p>
 <p>纵向：变化慢；横向：变化快。</p>
 <h2 id="color-brown-自适应矩估计优化算法"><a href="#color-brown-自适应矩估计优化算法" class="headerlink" title="$\color{brown}{自适应矩估计优化算法}$"></a>$\color{brown}{自适应矩估计优化算法}$</h2><p><img src="https://s2.ax1x.com/2019/08/20/m8sdvF.jpg" alt="m8sdvF.jpg"></p>
@@ -240,7 +239,7 @@
 </div>
 <h2 id="color-brown-学习率衰减"><a href="#color-brown-学习率衰减" class="headerlink" title="$\color{brown}{学习率衰减}$"></a>$\color{brown}{学习率衰减}$</h2><p>在接近最优解时，减小步长，减小$\alpha$。</p>
 <h2 id="color-brown-局部最优-amp-停滞区"><a href="#color-brown-局部最优-amp-停滞区" class="headerlink" title="$\color{brown}{局部最优\&amp;停滞区}$"></a>$\color{brown}{局部最优\&amp;停滞区}$</h2><p>​        在神经网络中参数很多的情况下，所有参数梯度为零的点很可能是鞍点。类似马鞍状的停滞区会降低神经网络学习速度。停滞区是梯度接近于零的平缓区域，在停滞区上梯度很小，前进缓慢，到达鞍点需要很长时间。</p>
-<h5 id="color-brown-总结"><a href="#color-brown-总结" class="headerlink" title="$\color{brown}{总结}$"></a>$\color{brown}{总结}$</h5><ul>
+<h3 id="color-brown-总结"><a href="#color-brown-总结" class="headerlink" title="$\color{brown}{总结}$"></a>$\color{brown}{总结}$</h3><ul>
 <li>强大的神经网络一般不太可能陷入局部最优处；</li>
 <li>停滞区会使梯度下降变慢，降低学习速度。动量梯度下降、均方根传递优化算法、自适应矩估计优化算法算法都能有效解决停滞区下降过慢的问题。</li>
 </ul>
@@ -377,7 +376,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-小批量梯度下降法"><span class="toc-number">1.</span> <span class="toc-text">$\color{brown}{小批量梯度下降法}$</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#color-brown-why-color-brown-mini-batch"><span class="toc-number">1.0.1.</span> <span class="toc-text">$\color{brown}{why}$ $\color{brown}{mini-batch?}$</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#color-brown-how-color-brown-to"><span class="toc-number">1.0.2.</span> <span class="toc-text">$\color{brown}{how} $ $\color{brown}{to?}$</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-超参数mini-batch-size选取"><span class="toc-number">2.</span> <span class="toc-text">$\color{brown}{超参数mini-batch size选取}$</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#color-brown-选取原则"><span class="toc-number">2.0.1.</span> <span class="toc-text">$\color{brown}{选取原则}$</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-动态梯度下降算法"><span class="toc-number">3.</span> <span class="toc-text">$\color{brown}{动态梯度下降算法}$</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#color-brown-指数加权平均"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">$\color{brown}{指数加权平均}$</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#color-brown-偏差修正"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">$\color{brown}{偏差修正}$</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-均方根传递优化算法"><span class="toc-number">4.</span> <span class="toc-text">$\color{brown}{均方根传递优化算法}$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-自适应矩估计优化算法"><span class="toc-number">5.</span> <span class="toc-text">$\color{brown}{自适应矩估计优化算法}$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-学习率衰减"><span class="toc-number">6.</span> <span class="toc-text">$\color{brown}{学习率衰减}$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-局部最优-amp-停滞区"><span class="toc-number">7.</span> <span class="toc-text">$\color{brown}{局部最优\&amp;停滞区}$</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#color-brown-总结"><span class="toc-number">7.0.0.1.</span> <span class="toc-text">$\color{brown}{总结}$</span></a></li></ol></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-小批量梯度下降法"><span class="toc-number">1.</span> <span class="toc-text">$\color{brown}{小批量梯度下降法}$</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#color-brown-why-color-brown-mini-batch"><span class="toc-number">1.1.</span> <span class="toc-text">$\color{brown}{why}$ $\color{brown}{mini-batch?}$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#color-brown-how-color-brown-to"><span class="toc-number">1.2.</span> <span class="toc-text">$\color{brown}{how} $ $\color{brown}{to?}$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#color-brown-cost-color-brown-function"><span class="toc-number">1.3.</span> <span class="toc-text">$\color{brown}{cost}$ $\color{brown}{function?}$</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-超参数mini-batch-size选取"><span class="toc-number">2.</span> <span class="toc-text">$\color{brown}{超参数mini-batch size选取}$</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#color-brown-选取原则"><span class="toc-number">2.1.</span> <span class="toc-text">$\color{brown}{选取原则}$</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-动态梯度下降算法"><span class="toc-number">3.</span> <span class="toc-text">$\color{brown}{动态梯度下降算法}$</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#color-brown-指数加权平均"><span class="toc-number">3.1.</span> <span class="toc-text">$\color{brown}{指数加权平均}$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#color-brown-偏差修正"><span class="toc-number">3.2.</span> <span class="toc-text">$\color{brown}{偏差修正}$</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-均方根传递优化算法"><span class="toc-number">4.</span> <span class="toc-text">$\color{brown}{均方根传递优化算法}$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-自适应矩估计优化算法"><span class="toc-number">5.</span> <span class="toc-text">$\color{brown}{自适应矩估计优化算法}$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-学习率衰减"><span class="toc-number">6.</span> <span class="toc-text">$\color{brown}{学习率衰减}$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color-brown-局部最优-amp-停滞区"><span class="toc-number">7.</span> <span class="toc-text">$\color{brown}{局部最优\&amp;停滞区}$</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#color-brown-总结"><span class="toc-number">7.1.</span> <span class="toc-text">$\color{brown}{总结}$</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -385,7 +384,6 @@
         
     </div>
 </aside>
-
 
 
   
@@ -435,7 +433,7 @@
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
-		toc_hide_index: true,
+		toc_hide_index: false,
 		root: "/",
 		innerArchive: true,
 		showTags: false
@@ -646,20 +644,5 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
