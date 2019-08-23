@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 上辈子是道数学题系列 | zero to one</title>
+  <title>deeplearning学习笔记9 机器学习策略（下） | zero to one</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="zero to one">
-<meta property="og:url" content="http://yoursite.com/tags/上辈子是道数学题系列/index.html">
+  <meta name="description" content="错误分析">
+<meta name="keywords" content="19暑假深度学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="deeplearning学习笔记9 机器学习策略（下）">
+<meta property="og:url" content="http://yoursite.com/2019/08/23/deeplearning9/index.html">
 <meta property="og:site_name" content="zero to one">
+<meta property="og:description" content="错误分析">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-23T13:30:59.846Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zero to one">
+<meta name="twitter:title" content="deeplearning学习笔记9 机器学习策略（下）">
+<meta name="twitter:description" content="错误分析">
   
     <link rel="alternative" href="/atom.xml" title="zero to one" type="application/atom+xml">
   
@@ -144,61 +149,383 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-deeplearning9" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/08/huihuitql/" class="archive-article-date">
-  	<time datetime="2019-08-08T14:07:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-08</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/08/huihuitql/">喵辉部长是男神</a>
+    <h1 class="article-title" itemprop="name">
+      deeplearning学习笔记9 机器学习策略（下）
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+                <!-- 不蒜子统计 -->        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次        </span>
+<a href="/2019/08/23/deeplearning9/" class="archive-article-date">
+  	<time datetime="2019-08-23T08:11:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="错误分析"><a href="#错误分析" class="headerlink" title="错误分析"></a>错误分析</h2><a id="more"></a>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">图像</th>
+<th style="text-align:center">狗</th>
+<th style="text-align:center">大猫</th>
+<th style="text-align:center">模糊</th>
+<th style="text-align:center">$\color{red}{不正确标签}$</th>
+<th style="text-align:center">评价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">皮特狗</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">忽略背景里的狗</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">下雨的动物园</td>
+</tr>
+<tr>
+<td style="text-align:center">…</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">% of total</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">43</td>
+<td style="text-align:center">61</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">100</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>判断优化优先级</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Overall dev set error</th>
+<th>10%</th>
+<th>2%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Errors due incorrect lables</td>
+<td>0.6%</td>
+<td><strong>0.6%</strong></td>
+</tr>
+<tr>
+<td>Errors due to other causes</td>
+<td><strong>9.4%</strong></td>
+<td>1.4%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="快速建立第一代系统，然后迭代"><a href="#快速建立第一代系统，然后迭代" class="headerlink" title="快速建立第一代系统，然后迭代"></a>快速建立第一代系统，然后迭代</h2><ul>
+<li>建立开发/测试集和评估参数</li>
+<li>快速建立初步系统</li>
+<li>偏差/方差分析&amp;错误分析</li>
+</ul>
+<h2 id="训练集和测试集在不同分布上"><a href="#训练集和测试集在不同分布上" class="headerlink" title="训练集和测试集在不同分布上"></a>训练集和测试集在不同分布上</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>训练</th>
+<th>开发</th>
+<th>测试</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200000网页+5000移动应用</td>
+<td>2500移动应用</td>
+<td>2500移动应用</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="偏差和方差与不匹配的数据分布"><a href="#偏差和方差与不匹配的数据分布" class="headerlink" title="偏差和方差与不匹配的数据分布"></a>偏差和方差与不匹配的数据分布</h3><p>训练-开发集（和训练集的分布相同）</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>人</th>
+<th>0</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>训练</td>
+<td>10</td>
+<td>10</td>
+</tr>
+<tr>
+<td>开发</td>
+<td>11</td>
+<td>11</td>
+</tr>
+<tr>
+<td>测试</td>
+<td>12</td>
+<td>20</td>
+</tr>
+<tr>
+<td>问题</td>
+<td>高偏差</td>
+<td>高偏差、数据失配</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>一般数据集</th>
+<th>特定数据集</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>人类</td>
+<td>Human Level</td>
+<td></td>
+</tr>
+<tr>
+<td>训练</td>
+<td>Training error</td>
+<td></td>
+</tr>
+<tr>
+<td>未训练</td>
+<td>Traing-dev error</td>
+<td>dev/test</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="数据不匹配"><a href="#数据不匹配" class="headerlink" title="数据不匹配"></a>数据不匹配</h3><ul>
+<li>发现训练集和开发/测试集的不同</li>
+<li>使训练集和开发集更相似</li>
+</ul>
+<h4 id="人工合成数据（避免过拟合问题）"><a href="#人工合成数据（避免过拟合问题）" class="headerlink" title="人工合成数据（避免过拟合问题）"></a>人工合成数据（避免过拟合问题）</h4><h3 id="迁移学习"><a href="#迁移学习" class="headerlink" title="迁移学习"></a>迁移学习</h3><ul>
+<li>初始化最后一层的权重，数据不充足时，更新最后一层；数据充足时，可以全部更新权重。</li>
+<li>新建隐藏层</li>
+</ul>
+<p>数据规模大$\to$数据规模小（否则虽然没有损失，但也没有增益）；相同输入；A对B有用。</p>
+<h2 id="多任务学习"><a href="#多任务学习" class="headerlink" title="多任务学习"></a>多任务学习</h2><p>输出多个标签，同时学习；训练集的输出可以不完整。</p>
+<ul>
+<li>共享低层次特征</li>
+<li>每个单项的数据量相似</li>
+<li>足够大的神经网络和单项训练相比能提高性能</li>
+</ul>
+<h2 id="端到端的深度学习"><a href="#端到端的深度学习" class="headerlink" title="端到端的深度学习"></a>端到端的深度学习</h2><p>人脸识别系统：第一步，将人脸至于图片中央；第二步，判断是否为同一个人（两个神经系统）。</p>
+<h3 id="判断是否使用"><a href="#判断是否使用" class="headerlink" title="判断是否使用"></a>判断是否使用</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>让数据自己探索内在统计学规律</th>
+<th>简化所需设计的中间组件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>缺点</td>
+<td>需要海量数据</td>
+<td>排除一些实用手工设计组件</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>$\color{red}{是否有足够数据来拟合出x到y的方程。}$</p>
+<blockquote>
+<p>版权声明：版主原创，与课程讲义雷同。</p>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您讷~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">上辈子是道数学题系列</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/23/deeplearning9/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/08/22/deeplearning8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">deeplearning学习笔记8 机器学习策略（上）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#错误分析"><span class="toc-number">1.</span> <span class="toc-text">错误分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速建立第一代系统，然后迭代"><span class="toc-number">2.</span> <span class="toc-text">快速建立第一代系统，然后迭代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#训练集和测试集在不同分布上"><span class="toc-number">3.</span> <span class="toc-text">训练集和测试集在不同分布上</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#偏差和方差与不匹配的数据分布"><span class="toc-number">3.1.</span> <span class="toc-text">偏差和方差与不匹配的数据分布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据不匹配"><span class="toc-number">3.2.</span> <span class="toc-text">数据不匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#人工合成数据（避免过拟合问题）"><span class="toc-number">3.2.1.</span> <span class="toc-text">人工合成数据（避免过拟合问题）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迁移学习"><span class="toc-number">3.3.</span> <span class="toc-text">迁移学习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多任务学习"><span class="toc-number">4.</span> <span class="toc-text">多任务学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#端到端的深度学习"><span class="toc-number">5.</span> <span class="toc-text">端到端的深度学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#判断是否使用"><span class="toc-number">5.1.</span> <span class="toc-text">判断是否使用</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -232,9 +559,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: false,
