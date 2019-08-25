@@ -6,15 +6,35 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 19暑假深度学习 | zero to one</title>
+  <title>deeplearning学习笔记10 卷积神经网络 | zero to one</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="zero to one">
-<meta property="og:url" content="http://yoursite.com/tags/19暑假深度学习/index.html">
+  <meta name="description" content="$\color{brown}{计算机视觉三问题：}$">
+<meta name="keywords" content="19暑假深度学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="deeplearning学习笔记10 卷积神经网络">
+<meta property="og:url" content="http://yoursite.com/2019/08/24/deeplearning10/index.html">
 <meta property="og:site_name" content="zero to one">
+<meta property="og:description" content="$\color{brown}{计算机视觉三问题：}$">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/25/mcciB8.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/25/mcoLY6.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/25/mcTK7n.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/25/mcTr9K.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/25/mcHQzT.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/25/mcXsIJ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/25/mgS9BV.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/25/mgSpn0.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/25/mgpOQs.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/25/mguYxP.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/25/mgKFL8.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/25/mgKWlt.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/25/mgQ0aD.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/25/mg1qET.png">
+<meta property="og:updated_time" content="2019-08-25T06:44:41.903Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zero to one">
+<meta name="twitter:title" content="deeplearning学习笔记10 卷积神经网络">
+<meta name="twitter:description" content="$\color{brown}{计算机视觉三问题：}$">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/08/25/mcciB8.png">
   
     <link rel="alternative" href="/atom.xml" title="zero to one" type="application/atom+xml">
   
@@ -144,37 +164,151 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-deeplearning10" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      deeplearning学习笔记10 卷积神经网络
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+
+        
+                <!-- 不蒜子统计 -->        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次        </span>
 <a href="/2019/08/24/deeplearning10/" class="archive-article-date">
   	<time datetime="2019-08-24T13:59:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-24</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/24/deeplearning10/">deeplearning学习笔记10 卷积神经网络</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>$\color{brown}{计算机视觉三问题：}$</p>
+<a id="more"></a>
+<ul>
+<li>图像分类</li>
+<li>目标检测</li>
+<li>风格迁移</li>
+</ul>
+<p>$\color{brown}{如果使用传统神经网络：}$</p>
+<ul>
+<li>数据量庞大，容易出现过拟合</li>
+<li>对计算量和内存的需求很大</li>
+</ul>
+<h2 id="卷积运算"><a href="#卷积运算" class="headerlink" title="卷积运算"></a>卷积运算</h2><h3 id="边缘检测"><a href="#边缘检测" class="headerlink" title="边缘检测"></a>边缘检测</h3><h4 id="垂直边缘检测"><a href="#垂直边缘检测" class="headerlink" title="垂直边缘检测"></a>垂直边缘检测</h4><p>以垂直边缘检测为例。左一矩阵中数字为灰度，星号表示“卷积”运算，中间矩阵是滤波器。</p>
+<p><img src="https://s2.ax1x.com/2019/08/25/mcciB8.png" alt="mcciB8.png"></p>
+<p>卷积运算法则：左$\to$右，上$\to$下，每次取与滤波器同等大小的体部分，每个值与滤波器中对应的值相乘后求和，将结果构成一个矩阵。如果原始图片尺寸为$n\times n$，滤波器大小为$f\times f$，则卷积后图片尺寸为$(n-f+1)\times (n-f+1)$。</p>
+<h4 id="更多边缘检测"><a href="#更多边缘检测" class="headerlink" title="更多边缘检测"></a>更多边缘检测</h4><p>由明变暗/由暗变明。有区别，但是不影响检测结果。实际应用中，可以对输出图片取绝对值。</p>
+<p><a href="https://imgchr.com/i/mcoLY6" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/25/mcoLY6.png" alt="mcoLY6.png"></a></p>
+<p>$\color{brown}{垂直}$边缘检测器和$\color{brown}{水平}$边缘检测器（将垂直顺时针旋转90°）：</p>
+<p><img src="https://s2.ax1x.com/2019/08/25/mcTK7n.png" alt="mcTK7n.png"></p>
+<p>$\color{brown}{其他}$常用滤波器：</p>
+<p><a href="https://imgchr.com/i/mcTr9K" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/25/mcTr9K.png" alt="mcTr9K.png"></a></p>
+<p>如果不限于垂直和水平，则滤波器中的数值需要通过模型训练得到，类似于标准神经网络中的权重W一样由梯度下降算法反复迭代求得。</p>
+<h3 id="填充"><a href="#填充" class="headerlink" title="填充"></a>填充</h3><p>卷积运算两个问题：</p>
+<ul>
+<li>卷积使图片尺寸缩小；</li>
+<li>原图片边缘像素只能参与1次运算，丢失边缘等信息。</li>
+</ul>
+<p>为了解决图片缩小的问题，可以使用填充方法，即把原始图片尺寸进行扩展，扩展区域补零，用p来表示每个方向扩展的宽度。</p>
+<p><a href="https://imgchr.com/i/mcHQzT" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/25/mcHQzT.png" alt="mcHQzT.png"></a></p>
+<p>经过填充之后，原始图片尺寸为(n+2p) x (n+2p)，filter尺寸为f x f，则卷积后的图片尺寸为(n+2p-f+1) x (n+2p-f+1)。若要保证卷积前后图片尺寸不变，则p应满足：</p>
+<script type="math/tex; mode=display">
+p=\frac{f-1}{2}</script><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Valid convolutions</th>
+<th>p=0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Same convolutions</td>
+<td>$p=\frac {f-1}{2}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>其中，f通常为奇数，以便于通过中心点表示滤波器所在位置。</p>
+<h3 id="带步长的卷积"><a href="#带步长的卷积" class="headerlink" title="带步长的卷积"></a>带步长的卷积</h3><p>步长表示滤波器在原图片中水平方向和垂直方向每次的前进长度。之前默认步长=1。若步长=2，则表示步长每次步进长度为2。</p>
+<p><img src="https://s2.ax1x.com/2019/08/25/mcXsIJ.png" alt="mcXsIJ.png"></p>
+<p>用s表示stride长度，p表示padding长度，如果原始图片尺寸为n x n，filter尺寸为f x f，则卷积后的图片尺寸为：</p>
+<script type="math/tex; mode=display">
+\lfloor\frac{n+2p-f}{2}+1\rfloor \times
+\lfloor\frac{n+2p-f}{2}+1\rfloor</script><h3 id="三维卷积运算"><a href="#三维卷积运算" class="headerlink" title="三维卷积运算"></a>三维卷积运算</h3><p>将每个单通道（R，G，B）与对应的滤波器进行卷积运算求和，然后再将三个通道的和相加，将 27 个乘积的和作为输出图片的一个像素值。</p>
+<p>单滤波器：</p>
+<p><img src="https://s2.ax1x.com/2019/08/25/mgS9BV.png" alt="mgS9BV.png"></p>
+<p>多滤波器：</p>
+<p><img src="https://s2.ax1x.com/2019/08/25/mgSpn0.png" alt="mgSpn0.png"></p>
+<p>输入图片的尺寸为n×n×$n_c$（$n_c$为通道数），滤波器尺寸为 f×f×$n_c$，则<strong>卷积后的输出图片尺寸为 (n−f+1)×(n−f+1)×$n_c’$</strong> ，$n_c’$为滤波器组的个数。</p>
+<h2 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h2><h3 id="单层卷积神经网络"><a href="#单层卷积神经网络" class="headerlink" title="单层卷积神经网络"></a>单层卷积神经网络</h3><p><img src="https://s2.ax1x.com/2019/08/25/mgpOQs.png" alt="mgpOQs.png"></p>
+<p>整个过程与标准神经网络非常相似，卷积运算对应着下式中的乘积运算，滤波器组数值对应着权重$W^{[l]}$,所选激活函数为ReLU。</p>
+<script type="math/tex; mode=display">
+Z^{[l]} = W^{[l]}A^{[l-1]} + b^{[l]}\\
+A^{[l]} = g^{[l]}(Z^{[l]})</script><p>计算参数数目：每个滤波器组有3x3x3=27个参数，还有1个偏移量b，则每个滤波器组有27+1=28个参数，两个滤波器组总共包含28x2=56个参数。选定滤波器组后，参数数目与输入图片尺寸无关。所以，不存在由于图片尺寸过大，造成参数过多的情况。例如一张1000x1000x3的图片，标准神经网络输入层的维度将达到3百万，而在CNN中，参数数目只由滤波器组决定，数目相对来说要少得多。</p>
+<h4 id="总结CNN单层结构中的所有标记符号"><a href="#总结CNN单层结构中的所有标记符号" class="headerlink" title="总结CNN单层结构中的所有标记符号"></a>总结CNN单层结构中的所有标记符号</h4><p>$f^{[l]}=\text{filter size}$</p>
+<p>$p^{[l]}=\text{padding}$</p>
+<p>$s^{[l]}=\text{stride}$</p>
+<p>$n^{[l]}_c=\text{number of filters}$</p>
+<p>输入维度：$n^{[l-1]}_H\times n^{[l-1]}_W\times n^{[l-1]}_c$</p>
+<p>每个滤波器组维度：$f^{[l]}\times f^{[l-1]}\times n^{[l-1]}_c$</p>
+<p>权重维度：$f^{[l]}\times f^{[l-1]}\times n^{[l-1]}_c\times n^{[l]}_c$</p>
+<p>偏置维度：$1\times 1\times 1\times n^{[l]}_c$</p>
+<p>输出维度：$n^{[l]}_H\times n^{[l]}_W\times n^{[l-1]}_c$</p>
+<p>其中，</p>
+<p>$n^{[l]}_H=\lfloor\frac{n^{[l-1]}_H+2p^{[l]}-f^{[l]}}{s^{[l]}}+1\rfloor $</p>
+<p>$n^{[l]}_W=\lfloor\frac{n^{[l-1]}_W+2p^{[l]}-f^{[l]}}{s^{[l]}}+1\rfloor $</p>
+<p>如果有m个样本，进行向量化运算，输出维度为：$m\times n^{[l]}_H\times n^{[l]}_W\times n^{[l-1]}_c$</p>
+<h3 id="深度卷积网络"><a href="#深度卷积网络" class="headerlink" title="深度卷积网络"></a>深度卷积网络</h3><p><a href="https://imgchr.com/i/mguYxP" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/25/mguYxP.png" alt="mguYxP.png"></a></p>
+<h4 id="池层"><a href="#池层" class="headerlink" title="池层"></a>池层</h4><p><img src="https://s2.ax1x.com/2019/08/25/mgKFL8.png" alt="mgKFL8.png"></p>
+<p>Max pooling的好处是只保留区域内的最大值（特征），忽略其它值，降低noise影响。而且，max pooling需要的超参数仅为滤波器尺寸f和滤波器步进长度s，没有其他参数需要模型训练得到。</p>
+<p><strong>如果是多个通道，那么就每个通道单独进行max pooling操作。</strong></p>
+<p>除了max pooling之外，还有一种做法：average pooling。顾名思义，average pooling就是在滤波器算子滑动区域计算平均值。<br><img src="https://s2.ax1x.com/2019/08/25/mgKWlt.png" alt="mgKWlt.png"></p>
+<h4 id="CNN-Example"><a href="#CNN-Example" class="headerlink" title="CNN Example"></a>CNN Example</h4><p><img src="https://s2.ax1x.com/2019/08/25/mgQ0aD.png" alt="mgQ0aD.png"></p>
+<p>CONV层后面紧接一个POOL层，CONV1和POOL1构成第一层，CONV2和POOL2构成第二层。FC3和FC4为全连接层FC，即标准的神经网络结构。最后的输出层为softmax，由10个神经元构成。</p>
+<p>整个网络各层的尺寸和参数如下表格所示：</p>
+<p><img src="https://s2.ax1x.com/2019/08/25/mg1qET.png" alt="mg1qET.png"></p>
+<h3 id="卷积网络有效的原因"><a href="#卷积网络有效的原因" class="headerlink" title="卷积网络有效的原因"></a>卷积网络有效的原因</h3><p>相比于标准神经网络，卷积网络有更少的参数：</p>
+<ul>
+<li>$\color{brown}{参数共享}$：一个特征检测器（例如垂直边缘检测）对图片某块区域有用，同时也可能作用在图片其它区域。</li>
+<li>$\color{brown}{连接的稀疏性}$：因为滤波器算子尺寸限制，每一层的每个输出只与输入部分区域内有关。</li>
+</ul>
+<p>由于CNN参数数目较小，所需的训练样本就相对较少，从而一定程度上不容易发生过拟合现象；CNN比较擅长捕捉区域位置偏移。也就是说CNN进行物体检测时，不太受物体所处图片位置的影响。</p>
+<blockquote>
+<p>版权声明：版姐小主原创</p>
+</blockquote>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您讷~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -186,370 +320,118 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/24/deeplearning10/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/23/deeplearning9/" class="archive-article-date">
-  	<time datetime="2019-08-23T08:11:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-23</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/23/deeplearning9/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">deeplearning学习笔记9 机器学习策略（下）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/23/deeplearning9/">deeplearning学习笔记9 机器学习策略（下）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#卷积运算"><span class="toc-number">1.</span> <span class="toc-text">卷积运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#边缘检测"><span class="toc-number">1.1.</span> <span class="toc-text">边缘检测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#垂直边缘检测"><span class="toc-number">1.1.1.</span> <span class="toc-text">垂直边缘检测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#更多边缘检测"><span class="toc-number">1.1.2.</span> <span class="toc-text">更多边缘检测</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#填充"><span class="toc-number">1.2.</span> <span class="toc-text">填充</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#带步长的卷积"><span class="toc-number">1.3.</span> <span class="toc-text">带步长的卷积</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三维卷积运算"><span class="toc-number">1.4.</span> <span class="toc-text">三维卷积运算</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#卷积神经网络"><span class="toc-number">2.</span> <span class="toc-text">卷积神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#单层卷积神经网络"><span class="toc-number">2.1.</span> <span class="toc-text">单层卷积神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#总结CNN单层结构中的所有标记符号"><span class="toc-number">2.1.1.</span> <span class="toc-text">总结CNN单层结构中的所有标记符号</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#深度卷积网络"><span class="toc-number">2.2.</span> <span class="toc-text">深度卷积网络</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#池层"><span class="toc-number">2.2.1.</span> <span class="toc-text">池层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CNN-Example"><span class="toc-number">2.2.2.</span> <span class="toc-text">CNN Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#卷积网络有效的原因"><span class="toc-number">2.3.</span> <span class="toc-text">卷积网络有效的原因</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/22/deeplearning8/" class="archive-article-date">
-  	<time datetime="2019-08-22T05:33:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/22/deeplearning8/">deeplearning学习笔记8 机器学习策略（上）</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/21/deeplearning7/" class="archive-article-date">
-  	<time datetime="2019-08-21T08:33:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/21/deeplearning7/">deeplearning学习笔记7 超参数调整和规范化</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/19/deeplearning6/" class="archive-article-date">
-  	<time datetime="2019-08-19T13:57:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/19/deeplearning6/">deeplearning学习笔记6 优化深度神经网络</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/17/deeplearning5/" class="archive-article-date">
-  	<time datetime="2019-08-17T13:20:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/17/deeplearning5/">deeplearning学习笔记5 超参数调整和正则化</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/15/deeplearning4/" class="archive-article-date">
-  	<time datetime="2019-08-15T12:30:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/15/deeplearning4/">deeplearning学习笔记4 深度神经网络</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/13/deeplearning3/" class="archive-article-date">
-  	<time datetime="2019-08-13T08:32:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/13/deeplearning3/">deeplearning学习笔记3 浅层神经网络</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/11/deeplearning2/" class="archive-article-date">
-  	<time datetime="2019-08-11T11:19:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/11/deeplearning2/">deeplearning学习笔记2 神经网络基础知识</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/09/deeplearning1/" class="archive-article-date">
-  	<time datetime="2019-08-09T13:46:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/09/deeplearning1/">deeplearning学习笔记1 引言</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -583,9 +465,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: false,
