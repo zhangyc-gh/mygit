@@ -6,15 +6,40 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/8 | zero to one</title>
+  <title>deeplearning学习笔记11 深度卷积网络：实例探究 | zero to one</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="zero to one">
-<meta property="og:url" content="http://yoursite.com/archives/2019/08/page/2/index.html">
+  <meta name="description" content="案例学习（Case Studies）">
+<meta name="keywords" content="19暑假深度学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="deeplearning学习笔记11 深度卷积网络：实例探究">
+<meta property="og:url" content="http://yoursite.com/2019/08/26/deeplearning11/index.html">
 <meta property="og:site_name" content="zero to one">
+<meta property="og:description" content="案例学习（Case Studies）">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/26/mR4VAI.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/26/mRo4rF.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/26/mRTcee.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/26/mRqanK.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/26/mROlW9.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/26/mROxp9.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/26/mW9Dqs.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/26/mWPz5t.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/27/m5adXt.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/27/m520uF.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/27/m5RBxf.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/27/m5bNCD.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/27/m5OhKH.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/27/m5Xoy4.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/27/m5XTOJ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/27/m5XIlF.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/27/m5xQJ0.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/27/m5xTOg.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/27/m5xxpV.png">
+<meta property="og:updated_time" content="2019-08-27T09:10:55.457Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zero to one">
+<meta name="twitter:title" content="deeplearning学习笔记11 深度卷积网络：实例探究">
+<meta name="twitter:description" content="案例学习（Case Studies）">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/08/26/mR4VAI.png">
   
     <link rel="alternative" href="/atom.xml" title="zero to one" type="application/atom+xml">
   
@@ -144,37 +169,114 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-deeplearning11" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/09/deeplearning1/" class="archive-article-date">
-  	<time datetime="2019-08-09T13:46:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-09</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/09/deeplearning1/">deeplearning学习笔记1 引言</a>
+    <h1 class="article-title" itemprop="name">
+      deeplearning学习笔记11 深度卷积网络：实例探究
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+                <!-- 不蒜子统计 -->        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次        </span>
+<a href="/2019/08/26/deeplearning11/" class="archive-article-date">
+  	<time datetime="2019-08-26T01:58:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="案例学习（Case-Studies）"><a href="#案例学习（Case-Studies）" class="headerlink" title="案例学习（Case Studies）"></a>案例学习（Case Studies）</h2><a id="more"></a>
+<h3 id="经典网络（Classic-Networks）"><a href="#经典网络（Classic-Networks）" class="headerlink" title="经典网络（Classic Networks）"></a>经典网络（Classic Networks）</h3><h4 id="LeNet-5"><a href="#LeNet-5" class="headerlink" title="LeNet-5"></a>LeNet-5</h4><p>LeNet-5是1998年针对灰度图像训练的而提出的模型。假设有一张32 × 32 × 1的图片，LeNet-5可以识别图片中的手写数字，模型如下。 </p>
+<p><img src="https://s2.ax1x.com/2019/08/26/mR4VAI.png" alt="mR4VAI.png"></p>
+<p>该模型没有使用padding和ReLU函数，不过Conv -&gt; Pool -&gt; Conv -&gt; Pool -&gt; FC -&gt; FC -&gt; Output这种结构当前仍然使用较多。</p>
+<h4 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h4><p><img src="https://s2.ax1x.com/2019/08/26/mRo4rF.png" alt="mRo4rF.png"></p>
+<p>AlexNet使用了ReUL函数，使得它比LeNet-5表现更出色。它与LeTnet-5有很多相似之处，不过它要大得多。LeNet-5有大约6万个参数，而它有约6000万个参数。</p>
+<h4 id="VGG-16"><a href="#VGG-16" class="headerlink" title="VGG-16"></a>VGG-16</h4><p><img src="https://s2.ax1x.com/2019/08/26/mRTcee.png" alt="mRTcee.png"></p>
+<p>VGG-16的网络<strong>结构比较简单</strong>，仅使用一种卷积层和池化层，卷积层参数为3 × 3、<em>s</em> = 1、same，池化层参数为2 × 2、<em>s</em> = 2，<strong>缺点在于参数较多</strong>。</p>
+<p>VGG-16的数字16表示这个网络中包含16个卷积层和全连接层，总共约1.38亿个参数。</p>
+<h3 id="残差网络（ResNets）"><a href="#残差网络（ResNets）" class="headerlink" title="残差网络（ResNets）"></a>残差网络（ResNets）</h3><p>非常深的神经网络是很难训练的，因为存在梯度消失和梯度爆炸问题。ResNets是由<strong>残差块（Residual block）</strong>构建的。对于以下模型：</p>
+<p><img src="https://s2.ax1x.com/2019/08/26/mRqanK.png" alt="mRqanK.png"></p>
+<p>正向传播通常这样计算：</p>
+<script type="math/tex; mode=display">
+z^{[l+1]}=W^{[l+1]}a^{[l]}+b^{[l+1]}\to a^{[l+1]}=g(z^{[l+1]})\\
+z^{[l+2]}=W^{[l+2]}a^{[l+1]}+b^{[l+2]}\to a^{[l+2]}=g(z^{[l+2]})\\</script><p>而在残差网络中，增加了一条将$a^{[l]}$连接到$a^{[l+2]}$的<strong>捷径（Short Cut）</strong>，从而产生了一个残差块，这个操作也称为跳跃连接（Skip Connection）。</p>
+<script type="math/tex; mode=display">
+z^{[l+1]}=W^{[l+1]}a^{[l]}+b^{[l+1]}\to a^{[l+1]}=g(z^{[l+1]})\\
+z^{[l+2]}=W^{[l+2]}a^{[l+1]}+b^{[l+2]}\to a^{[l+2]}=g(z^{[l+2]}+a^{[l]})\\</script><p>对于以下网络，每两层增加一个捷径，从而形成了5个残差块，构成了残差网络。</p>
+<p><img src="https://s2.ax1x.com/2019/08/26/mROlW9.png" alt="mROlW9.png"></p>
+<p>对于通常的神经网络，理论上，层数越多，训练误差会越小；不过实际上，层数越多，意味着用优化算法训练越难，因此训练误差会有所增加；而对于残差网络，即使层数很大，训练误差仍然会降低。因此，残差网络有利于训练更深的神经网络。</p>
+<p><img src="https://s2.ax1x.com/2019/08/26/mROxp9.png" alt="mROxp9.png"></p>
+<h4 id="残差网络有效的原因（Why-ResNets-Work）"><a href="#残差网络有效的原因（Why-ResNets-Work）" class="headerlink" title="残差网络有效的原因（Why ResNets Work）"></a>残差网络有效的原因（Why ResNets Work）</h4><p>如果$W^{[l+2]}=0,b^{[l+2]}=0$，那么$a^{[l+2]}=a^{[l]}$。所以残差块学习恒等式函数并不难，这也就是残差网络有效的原因，网络性能不会受到影响，很多时候可以提高效率，至少不会降低网络的效率。</p>
+<p>除此之外，$z^{[l+2]}$和$a^{[l]}$有相同维度，所以ResNets使用了许多<strong>same</strong>卷积。如果$a^{[l]}$和$a^{[l+2]}$的维度不一样，需要增加一个参数$W_s$如下：</p>
+<script type="math/tex; mode=display">
+a^{[l+2]}=g(W^{l+2}a^{[l+1]}+b^{[l+2]}+W_sa^{[l]})</script><p>对于卷积神经网络，添加残差块的模型如下：</p>
+<p><img src="https://s2.ax1x.com/2019/08/26/mW9Dqs.png" alt="mW9Dqs.png"></p>
+<h3 id="网络中的网络和1-1的过滤器（Network-in-Network-and-1×1-convolutions）"><a href="#网络中的网络和1-1的过滤器（Network-in-Network-and-1×1-convolutions）" class="headerlink" title="网络中的网络和1*1的过滤器（Network in Network and 1×1 convolutions）"></a>网络中的网络和1*1的过滤器（Network in Network and 1×1 convolutions）</h3><p>1*1卷积也称为网络中的网络，如果输入矩阵的信道较多，可以采用其对信道进行压缩，而不会改变输入矩阵的高和宽。可以明显降低运算成本。</p>
+<p><img src="https://s2.ax1x.com/2019/08/26/mWPz5t.png" alt="mWPz5t.png"></p>
+<h3 id="谷歌-Inception-网络简介（Inception-network-motivation）"><a href="#谷歌-Inception-网络简介（Inception-network-motivation）" class="headerlink" title="谷歌 Inception 网络简介（Inception network motivation）"></a>谷歌 Inception 网络简介（Inception network motivation）</h3><p>如果你在构建神经网络层的时候，不想决定池化层是使用1×1，3×3还是5×5的过滤器，那么<strong>Inception</strong>模块就是最好的选择。我们可以应用各种类型的过滤器，只需要把输出连接起来。</p>
+<p><img src="https://s2.ax1x.com/2019/08/27/m5adXt.png" alt="m5adXt.png"></p>
+<p><strong>计算成本问题</strong>，将通过使用1×1卷积来构建<strong>瓶颈层</strong>，从而大大降低计算成本。</p>
+<p><img src="https://s2.ax1x.com/2019/08/27/m520uF.png" alt="m520uF.png"></p>
+<p>所需要乘法运算的总次数是1204万，与上一张幻灯片中的值做比较，计算成本从1.2亿下降到了原来的十分之一。</p>
+<h4 id="Inception-网络（Inception-network）"><a href="#Inception-网络（Inception-network）" class="headerlink" title="Inception 网络（Inception network）"></a>Inception 网络（Inception network）</h4><p><img src="https://s2.ax1x.com/2019/08/27/m5RBxf.png" alt="m5RBxf.png"></p>
+<p>将这些方块全都连接起来。在这过程中，把得到的各个层的通道都加起来，最后得到一个28×28×256的输出。通道连接实际就是之前视频中看到过的，把所有方块连接在一起的操作。这就是一个Inception模块，而Inception网络所做的就是将这些模块都组合到一起。</p>
+<p><a href="https://imgchr.com/i/m5bNCD" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/27/m5bNCD.png" alt="m5bNCD.png"></a></p>
+<p>在网络的最后几层，通常称为全连接层，在它之后是一个<strong>softmax</strong>层（编号1）来做出预测，这些分支（编号2）所做的就是通过隐藏层（编号3）来做出预测，所以这其实是一个<strong>softmax</strong>输出（编号2），这（编号1）也是。这是另一条分支（编号4），它也包含了一个隐藏层，通过一些全连接层，然后有一个<strong>softmax</strong>来预测，输出结果的标签。</p>
+<p>它确保了即便是隐藏单元和中间层（编号5）也参与了特征计算，它们也能预测图片的分类。它在<strong>Inception</strong>网络中，起到一种调整的效果，并且能<strong>防止网络发生过拟合</strong>。</p>
+<h3 id="迁移学习（Transfer-Learning）"><a href="#迁移学习（Transfer-Learning）" class="headerlink" title="迁移学习（Transfer Learning）"></a>迁移学习（Transfer Learning）</h3><p>从网上下载一些神经网络开源的实现，不仅把代码下载下来，也把权重下载下来。举个例子，<strong>ImageNet</strong>数据集，它有1000个不同的类别，因此这个网络会有一个<strong>Softmax</strong>单元，它可以输出1000个可能类别之一。</p>
+<p><img src="https://s2.ax1x.com/2019/08/27/m5OhKH.png" alt="m5OhKH.png"></p>
+<p>去掉Softmax层，创建自己的<strong>Softmax</strong>单元，用来输出<strong>Tigger</strong>、<strong>Misty</strong>和<strong>neither</strong>三个类别。就网络而言，冻结网络中所有层的参数，只需要训练和<strong>Softmax</strong>层有关的参数。这个<strong>Softmax</strong>层有三种可能的输出，<strong>Tigger</strong>、<strong>Misty</strong>或者都不是。</p>
+<p>如果有越多的数据，需要冻结的层数越少，能够训练的层数就越多。</p>
+<h3 id="数据扩充（Data-augmentation）"><a href="#数据扩充（Data-augmentation）" class="headerlink" title="数据扩充（Data augmentation）"></a>数据扩充（Data augmentation）</h3><h4 id="垂直镜像（Mirroring）"><a href="#垂直镜像（Mirroring）" class="headerlink" title="垂直镜像（Mirroring）"></a>垂直镜像（Mirroring）</h4><p><img src="https://s2.ax1x.com/2019/08/27/m5Xoy4.png" alt="m5Xoy4.png"></p>
+<h4 id="随机裁剪（Random-Cropping）"><a href="#随机裁剪（Random-Cropping）" class="headerlink" title="随机裁剪（Random Cropping）"></a>随机裁剪（Random Cropping）</h4><p><img src="https://s2.ax1x.com/2019/08/27/m5XTOJ.png" alt="m5XTOJ.png"></p>
+<h4 id="色彩转换（Clolor-Shifting）"><a href="#色彩转换（Clolor-Shifting）" class="headerlink" title="色彩转换（Clolor Shifting）"></a>色彩转换（Clolor Shifting）</h4><p><img src="https://s2.ax1x.com/2019/08/27/m5XIlF.png" alt="m5XIlF.png"></p>
+<h3 id="计算机视觉现状（The-state-of-computer-vision）"><a href="#计算机视觉现状（The-state-of-computer-vision）" class="headerlink" title="计算机视觉现状（The state of computer vision）"></a>计算机视觉现状（The state of computer vision）</h3><h4 id="学习算法两种知识来源"><a href="#学习算法两种知识来源" class="headerlink" title="学习算法两种知识来源:"></a>学习算法两种知识来源:</h4><ul>
+<li>被标记的数据</li>
+<li>手工工程</li>
+</ul>
+<h4 id="在基准测试中表现出色的小技巧："><a href="#在基准测试中表现出色的小技巧：" class="headerlink" title="在基准测试中表现出色的小技巧："></a>在基准测试中表现出色的小技巧：</h4><p><a href="https://imgchr.com/i/m5xQJ0" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/27/m5xQJ0.png" alt="m5xQJ0.png"></a></p>
+<p>其中一个是<strong>集成</strong>，独立训练几个神经网络，并平均它们的输出。比如说随机初始化三个、五个或者七个神经网络，然后训练所有这些网络，然后平均它们的输出。</p>
+<p><a href="https://imgchr.com/i/m5xTOg" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/27/m5xTOg.png" alt="m5xTOg.png"></a></p>
+<p>对进准测试有帮助的另一个技巧就是<strong>Multi-crop at test time</strong>，<strong>Multi-crop</strong>是一种将数据扩充应用到你的测试图像中的一种形式。举个例子,把它复制四遍，包括它的两个镜像版本。有一种叫作<strong>10-crop</strong>的技术，假设取这个中心区域，裁剪，然后通过分类器去运行它，然后取左上角区域，运行分类器，右上角用绿色表示，左下方用黄色表示，右下方用橙色表示，通过分类器来运行它，然后对镜像图像做同样的事情。所以取中心的<strong>crop</strong>，然后取四个角落的<strong>crop</strong>。</p>
+<p><a href="https://imgchr.com/i/m5xxpV" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/27/m5xxpV.png" alt="m5xxpV.png"></a></p>
+<p>这是这里（编号1）和这里（编号3）就是中心<strong>crop</strong>，这里（编号2）和这里（编号4）就是四个角落的<strong>crop</strong>。如果把这些加起来，就会有10种不同的图像的<strong>crop</strong>，因此命名为<strong>10-crop</strong>。通过分类器来运行这十张图片，然后对结果进行平均。</p>
+<blockquote>
+<p>版权声明：斑猪原创</p>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您讷~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -186,61 +288,117 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/26/deeplearning11/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/08/huihuitql/" class="archive-article-date">
-  	<time datetime="2019-08-08T14:07:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-08</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/24/deeplearning10/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">deeplearning学习笔记10 卷积神经网络</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/08/huihuitql/">喵辉部长是男神</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">上辈子是道数学题系列</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#案例学习（Case-Studies）"><span class="toc-number">1.</span> <span class="toc-text">案例学习（Case Studies）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#经典网络（Classic-Networks）"><span class="toc-number">1.1.</span> <span class="toc-text">经典网络（Classic Networks）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LeNet-5"><span class="toc-number">1.1.1.</span> <span class="toc-text">LeNet-5</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AlexNet"><span class="toc-number">1.1.2.</span> <span class="toc-text">AlexNet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VGG-16"><span class="toc-number">1.1.3.</span> <span class="toc-text">VGG-16</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#残差网络（ResNets）"><span class="toc-number">1.2.</span> <span class="toc-text">残差网络（ResNets）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#残差网络有效的原因（Why-ResNets-Work）"><span class="toc-number">1.2.1.</span> <span class="toc-text">残差网络有效的原因（Why ResNets Work）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络中的网络和1-1的过滤器（Network-in-Network-and-1×1-convolutions）"><span class="toc-number">1.3.</span> <span class="toc-text">网络中的网络和1*1的过滤器（Network in Network and 1×1 convolutions）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#谷歌-Inception-网络简介（Inception-network-motivation）"><span class="toc-number">1.4.</span> <span class="toc-text">谷歌 Inception 网络简介（Inception network motivation）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Inception-网络（Inception-network）"><span class="toc-number">1.4.1.</span> <span class="toc-text">Inception 网络（Inception network）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迁移学习（Transfer-Learning）"><span class="toc-number">1.5.</span> <span class="toc-text">迁移学习（Transfer Learning）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据扩充（Data-augmentation）"><span class="toc-number">1.6.</span> <span class="toc-text">数据扩充（Data augmentation）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#垂直镜像（Mirroring）"><span class="toc-number">1.6.1.</span> <span class="toc-text">垂直镜像（Mirroring）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#随机裁剪（Random-Cropping）"><span class="toc-number">1.6.2.</span> <span class="toc-text">随机裁剪（Random Cropping）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#色彩转换（Clolor-Shifting）"><span class="toc-number">1.6.3.</span> <span class="toc-text">色彩转换（Clolor Shifting）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算机视觉现状（The-state-of-computer-vision）"><span class="toc-number">1.7.</span> <span class="toc-text">计算机视觉现状（The state of computer vision）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#学习算法两种知识来源"><span class="toc-number">1.7.1.</span> <span class="toc-text">学习算法两种知识来源:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在基准测试中表现出色的小技巧："><span class="toc-number">1.7.2.</span> <span class="toc-text">在基准测试中表现出色的小技巧：</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2019/08/">&laquo; Prev</a><a class="page-number" href="/archives/2019/08/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
+  
+
   
 
 
@@ -275,8 +433,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
