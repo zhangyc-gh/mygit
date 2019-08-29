@@ -6,15 +6,33 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>zero to one</title>
+  <title>deeplearning学习下笔记12 目标检测（Object Detectioon） | zero to one</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="zero to one">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+  <meta name="description" content="对象定位（Object localization）">
+<meta name="keywords" content="19暑假深度学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="deeplearning学习下笔记12 目标检测（Object Detectioon）">
+<meta property="og:url" content="http://yoursite.com/2019/08/28/deeplearning12/index.html">
 <meta property="og:site_name" content="zero to one">
+<meta property="og:description" content="对象定位（Object localization）">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/28/mo4vh4.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/28/moLeXQ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/28/mTFWQA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/28/mTlZnS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/28/mTNI00.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/28/mTUuAf.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/28/mTawZt.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/28/mTwDgg.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/29/mqQMef.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/29/mql8HK.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/29/mq19UO.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/29/mq8K3Q.png">
+<meta property="og:updated_time" content="2019-08-29T08:12:40.181Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zero to one">
+<meta name="twitter:title" content="deeplearning学习下笔记12 目标检测（Object Detectioon）">
+<meta name="twitter:description" content="对象定位（Object localization）">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/08/28/mo4vh4.png">
   
     <link rel="alternative" href="/atom.xml" title="zero to one" type="application/atom+xml">
   
@@ -144,113 +162,137 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-deeplearning2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-deeplearning12" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/11/deeplearning2/">deeplearning学习笔记2 神经网络基础知识</a>
+    <h1 class="article-title" itemprop="name">
+      deeplearning学习下笔记12 目标检测（Object Detectioon）
     </h1>
   
 
         
-        
-<a href="/2019/08/11/deeplearning2/" class="archive-article-date">
-  	<time datetime="2019-08-11T11:19:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
+                <!-- 不蒜子统计 -->        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次        </span>
+<a href="/2019/08/28/deeplearning12/" class="archive-article-date">
+  	<time datetime="2019-08-28T00:56:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="课堂笔记"><a href="#课堂笔记" class="headerlink" title="课堂笔记"></a>课堂笔记</h1><h2 id="作为神经网络的逻辑回归"><a href="#作为神经网络的逻辑回归" class="headerlink" title="作为神经网络的逻辑回归"></a>作为神经网络的逻辑回归</h2><h4 id="·二元分类算法：输入一张图片——判断——输出0-1"><a href="#·二元分类算法：输入一张图片——判断——输出0-1" class="headerlink" title="·二元分类算法：输入一张图片——判断——输出0/1"></a>·二元分类算法：输入一张图片——判断——输出0/1</h4>
-        
-          <a class="article-more-a" href="/2019/08/11/deeplearning2/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/11/deeplearning2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-deeplearning1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/09/deeplearning1/">deeplearning学习笔记1 引言</a>
-    </h1>
-  
-
-        
-        
-<a href="/2019/08/09/deeplearning1/" class="archive-article-date">
-  	<time datetime="2019-08-09T13:46:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="课堂笔记"><a href="#课堂笔记" class="headerlink" title="课堂笔记"></a><strong>课堂笔记</strong></h1><ul>
-<li><h4 id="ReLU（线性整流）函数【房价预测】"><a href="#ReLU（线性整流）函数【房价预测】" class="headerlink" title="ReLU（线性整流）函数【房价预测】"></a>ReLU（线性整流）函数【房价预测】</h4></li>
+        <h2 id="对象定位（Object-localization）"><a href="#对象定位（Object-localization）" class="headerlink" title="对象定位（Object localization）"></a>对象定位（Object localization）</h2><a id="more"></a>
+<p><strong>定位分类</strong>问题：不仅用算法判断图片中是不是一辆汽车，还要在图片中标记出它的位置，用边框或红色方框把汽车圈起来。</p>
+<p><strong>对象检测</strong>问题：图片可以含有多个对象，甚至单张图片中会有多个不同分类的对象。</p>
+<p><img src="https://s2.ax1x.com/2019/08/28/mo4vh4.png" alt="mo4vh4.png"></p>
+<p>让神经网络再多输出4个数字，$b_x,b_y,b_h,b_w$，这四个数字是被检测对象的边界框的参数化表示。</p>
+<ul>
+<li>图片左上角的坐标为$(0,0)$，右下角为$(1,1)$</li>
+<li>红色方框的中心点为$(b_x,b_y)$</li>
+<li>边界框的高度为$b_h$，宽度为$b_w$</li>
 </ul>
-        
-          <a class="article-more-a" href="/2019/08/09/deeplearning1/#more">more >></a>
-        
+<p><strong>监督学习任务定义目标标签y</strong>：</p>
+<script type="math/tex; mode=display">
+y=\begin{bmatrix} 
+p_c （是否含有对象）\\ b_x \\ b_y \\ b_h \\ b_w \\ c_1 （是行人、汽车还是摩托车）\\ c_2 （是行人、汽车还是摩托车）\\ c_3 （是行人、汽车还是摩托车）
+\end{bmatrix}</script><p><strong>若$p_c=0$</strong>，其它参数将变得毫无意义，下面参数全部写成问号，表示“毫无意义”的参数。</p>
+<p><strong>损失函数：</strong>$L(\hat{y},y)=(\hat{y_1}-y_1)^2+(\hat{y_2}-y_2)^2+…+(\hat{y_8}-y_8)^2$，损失值等于每个元素相应差值的平方和。</p>
+<p>如果$p_c=0$，损失值是$(\hat{y_1}-y_1)^2$，因为对于这种情况，不用考虑其它元素，只需要关注神经网络输出的准确度。</p>
+<h2 id="特征点检测（Landmark-detection）"><a href="#特征点检测（Landmark-detection）" class="headerlink" title="特征点检测（Landmark detection）"></a>特征点检测（Landmark detection）</h2><p>构建人脸识别应用，希望算法给出<strong>眼角的具体位置</strong>。眼角坐标为$(x,y)$，你可以让神经网络的最后一层多输出两个数字$l_x$和$l_y$，作为眼角的坐标值。</p>
+<p>如果你想知道两只眼睛的四个眼角的具体位置，那么从左到右，依次用四个特征点来表示这四个眼角。对神经网络稍做些修改，输出第一个特征点$(l_{1x},l_{1y})$，第二个特征点$(l_{2x},l_{2y})$，依此类推，这四个脸部特征点的位置就可以通过神经网络输出了。</p>
+<p><img src="https://s2.ax1x.com/2019/08/28/moLeXQ.png" alt="moLeXQ.png"></p>
+<ul>
+<li>将人脸图片输入卷积网络</li>
+<li>输出1或0（1表示有人脸，0表示没有人脸）</li>
+<li>输出$(l_{1x},l_{1y})$，……，直到$(l_{64x},l_{64y})$</li>
+</ul>
+<p>这里用$l$代表一个特征，这里有129个输出单元，其中1表示图片中有人脸，因为有64个特征，64×2=128，所以最终输出128+1=129个单元，由此实现对图片的人脸检测和定位。</p>
+<h2 id="目标检测（Object-detection）"><a href="#目标检测（Object-detection）" class="headerlink" title="目标检测（Object detection）"></a>目标检测（Object detection）</h2><p><img src="https://s2.ax1x.com/2019/08/28/mTFWQA.png" alt="mTFWQA.png"></p>
+<p><strong>训练卷积网络：</strong></p>
+<p>使用适当剪切的图片，使汽车居于中间位置，并基本占据整张图片。输入这些适当剪切过的图片（编号6），卷积网络输出，0或1表示图片中有汽车或没有汽车。训练完这个卷积网络，就可以用它来实现滑动窗口目标检测。</p>
+<h3 id="滑动窗口目标检测（Sliding-windows-detection）"><a href="#滑动窗口目标检测（Sliding-windows-detection）" class="headerlink" title="滑动窗口目标检测（Sliding windows detection）"></a>滑动窗口目标检测（Sliding windows detection）</h3><p><img src="https://s2.ax1x.com/2019/08/28/mTlZnS.png" alt="mTlZnS.png"></p>
+<p>取一个小窗口，让这个小窗口在想要检测的图片上滑动。一开始取的窗口会小一些，之后就越来越大。把小窗口中的图片送到卷积神经网络中去检测，看是输出1或是0，这样就能找到目标的位置。当然，这里的小窗口滑动的步长和小窗口的大小都是由讲究的。对于神经网络来说，这个方法已经不怎么适用了，因为这会产生很大的输入量和计算量。</p>
+<h2 id="卷积的滑动窗口实现-Convolutional-implementation-of-sliding-windows"><a href="#卷积的滑动窗口实现-Convolutional-implementation-of-sliding-windows" class="headerlink" title="卷积的滑动窗口实现(Convolutional implementation of sliding windows)"></a>卷积的滑动窗口实现(Convolutional implementation of sliding windows)</h2><h3 id="将全连接层转化为卷积层"><a href="#将全连接层转化为卷积层" class="headerlink" title="将全连接层转化为卷积层"></a>将全连接层转化为卷积层</h3><p><img src="https://s2.ax1x.com/2019/08/28/mTNI00.png" alt="mTNI00.png"></p>
+<p>如上图所示，我们在全连接层处。不再将每个节点单独的考虑，而是将所有节点视为上一层的输出。也就是将它们集合为一个向量。所以当我们在全连接层进行操作的时候，要使用的是卷积过滤器。这样我们就将一个全连接层转化成了一个卷积层。</p>
+<h3 id="卷积实现滑动检测"><a href="#卷积实现滑动检测" class="headerlink" title="卷积实现滑动检测"></a>卷积实现滑动检测</h3><p><img src="https://s2.ax1x.com/2019/08/28/mTUuAf.png" alt="mTUuAf.png"></p>
+<p>4次卷积操作中很多计算都是重复的，所以该卷积操作的原理是我们不需要把输入图像分割成四个子集，分别执行前向传播，而是把它们作为一张图片输入给卷积网络进行计算，其中的公共区域可以共享很多计算，就像这里我们看到的这个4个14×14的方块一样。</p>
+<p>再看一个更大的图片样本，假如对一个28×28×3的图片应用滑动窗口操作，如果以同样的方式运行前向传播，最后得到8×8×4的结果。跟上一个范例一样，以14×14区域滑动窗口，首先在这个区域应用滑动窗口，其结果对应输出层的左上角部分。接着以大小为2的步幅不断地向右移动窗口，直到第8个单元格，得到输出层的第一行。然后向图片下方移动，最终输出这个8×8×4的结果。</p>
+<h2 id="Bounding-Box预测（Bounding-box-predictions）"><a href="#Bounding-Box预测（Bounding-box-predictions）" class="headerlink" title="Bounding Box预测（Bounding box predictions）"></a>Bounding Box预测（Bounding box predictions）</h2><h3 id="YOLO算法"><a href="#YOLO算法" class="headerlink" title="YOLO算法"></a>YOLO算法</h3><p>其中一个能得到更精准边界框的算法是<strong>YOLO</strong>算法，<strong>YOLO</strong>(<strong>You only look once</strong>)意思是你只看一次。</p>
+<p><img src="https://s2.ax1x.com/2019/08/28/mTawZt.png" alt="mTawZt.png"></p>
+<p>这张图有两个对象，<strong>YOLO</strong>算法做的就是，取两个对象的<strong>中点</strong>，然后将这个对象分配给包含对象中点的格子。</p>
+<script type="math/tex; mode=display">
+y=\begin{bmatrix} 
+p_c （是否含有对象）\\ b_x \\ b_y \\ b_h \\ b_w \\ c_1 （是行人、汽车还是摩托车）\\ c_2 （是行人、汽车还是摩托车）\\ c_3 （是行人、汽车还是摩托车）
+\end{bmatrix}</script><p>对于这里9个格子中任何一个，都会得到一个8维输出向量，因为这里是3×3的网格，所以有9个格子，总的输出尺寸是3×3×8，所以目标输出是3×3×8。</p>
+<p><img src="https://s2.ax1x.com/2019/08/28/mTwDgg.png" alt="mTwDgg.png"></p>
+<ul>
+<li>显式地输出边界框坐标，所以这能让神经网络输出边界框，可以具有任意宽高比，并且能<strong>输出更精确的坐标</strong>，不会受到滑动窗口分类器的步长大小限制。</li>
+<li>单次卷积实现，使用了一个卷积网络，有很多共享计算步骤，在处理这3×3计算中很多计算步骤是共享的，或者19×19的网格，所以这个<strong>算法效率很高</strong>。</li>
+</ul>
+<h4 id="交并比（Intersection-over-union）"><a href="#交并比（Intersection-over-union）" class="headerlink" title="交并比（Intersection over union）"></a>交并比（Intersection over union）</h4><p><a href="https://imgchr.com/i/mqQMef" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/29/mqQMef.png" alt="mqQMef.png"></a></p>
+<p>$IoU=\frac{A\bigcap B}{A\bigcup B}$，一般将交并比的值<strong>大于0.5</strong>看成是检测正确的，当然这个值可以根据实际情况来定。</p>
+<h4 id="非极大值抑制（Non-max-suppression）"><a href="#非极大值抑制（Non-max-suppression）" class="headerlink" title="非极大值抑制（Non-max suppression）"></a>非极大值抑制（Non-max suppression）</h4><p>很多网格都会觉得这个对象是属于自己的，如下图所示：</p>
+<p><img src="https://s2.ax1x.com/2019/08/29/mql8HK.png" alt="mql8HK.png"></p>
+<p>用只有一个类别（如汽车）来说明非极大值抑制的过程：</p>
+<ul>
+<li>预测到有汽车的网格中概率小于阈值的都去掉（比如说0.6）；</li>
+<li>剩下预测到有汽车的都进行排序，取其中可能性最大的，它将成为一个预测结果，然后与它的交并比大于某个阈值的都去掉；</li>
+<li>在剩下中取最大可能性的；</li>
+</ul>
+<p>重复以上步骤，直到处理完全部。</p>
+<p>如下图所示（下图中的pc其实是之前的pc乘上类别概率c1、c2或c3）：</p>
+<p><img src="https://s2.ax1x.com/2019/08/29/mq19UO.png" alt="mq19UO.png"></p>
+<p>当有<strong>多个类别</strong>时，按<strong>类别</strong>分开进行非极大值抑制。</p>
+<h4 id="锚框（Anchor-boxes）"><a href="#锚框（Anchor-boxes）" class="headerlink" title="锚框（Anchor boxes）"></a>锚框（Anchor boxes）</h4><p>上面都是假设一个网格里面只有一个对象，如果有两个对象，如下图所示，人和汽车的中心点几乎重合，这时可以提出一种新概念，即在一个网格框中设置多个不同形状的anchor box，如下图所示：</p>
+<p><img src="https://s2.ax1x.com/2019/08/29/mq8K3Q.png" alt="mq8K3Q.png"></p>
+<p>其实实质就是每个网格的第三维度增加输出，把之前的3$\times$3$\times$8变成3$\times$3$\times$16，（或3$\times$3$\times$2$\times$8）。</p>
+<script type="math/tex; mode=display">
+y=\begin{bmatrix} 
+p_c \\ b_x \\ b_y \\ b_h \\ b_w \\ c_1 \\ c_2 \\ c_3 \\p_c \\ b_x \\ b_y \\ b_h \\ b_w \\ c_1 \\ c_2 \\ c_3 
+\end{bmatrix}</script><p>无法处理：</p>
+<ul>
+<li>超过两个对象在同一个网格</li>
+<li>两个对象都是与同一种类型</li>
+</ul>
+<h4 id="YOLO-Algorithm"><a href="#YOLO-Algorithm" class="headerlink" title="YOLO Algorithm"></a>YOLO Algorithm</h4><ul>
+<li>training：输入一张图片；</li>
+<li>making predictions：输出3$\times$3$\times$16向量；</li>
+<li>outputting the non-max suppressed outputs：去掉低概率预测，对每个分类进行非极大值抑制。</li>
+</ul>
+<h2 id="区域选择（Region-proposals）"><a href="#区域选择（Region-proposals）" class="headerlink" title="区域选择（Region proposals）"></a>区域选择（Region proposals）</h2><ul>
+<li>R-CNN：生成候选区域，特征提取，类别判断，位置精修；</li>
+<li>Fast R-CNN：解决R-CNN训练测试时速度慢、训练所需空间大等问题；</li>
+<li>Faster R-CNN：在特征图上滑动窗口；建一个神经网络用于物体分类和框位置的回归。</li>
+</ul>
+<blockquote>
+<p>版权声明：版权所有，翻版不究。</p>
+</blockquote>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您讷~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -270,16 +312,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/09/deeplearning1/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/28/deeplearning12/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/26/deeplearning11/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">deeplearning学习笔记11 深度卷积网络：实例探究</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -294,90 +395,31 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-huihuitql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/08/huihuitql/">喵辉部长是男神</a>
-    </h1>
-  
-
-        
-        
-<a href="/2019/08/08/huihuitql/" class="archive-article-date">
-  	<time datetime="2019-08-08T14:07:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>怀疑自己19号无法过科二的我在今天又享受了解决无数个沙雕问题的经历，不过博客网址加载出来的一刹那也是自己把自己满足了</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">上辈子是道数学题系列</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/08/huihuitql/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#对象定位（Object-localization）"><span class="toc-number">1.</span> <span class="toc-text">对象定位（Object localization）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特征点检测（Landmark-detection）"><span class="toc-number">2.</span> <span class="toc-text">特征点检测（Landmark detection）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目标检测（Object-detection）"><span class="toc-number">3.</span> <span class="toc-text">目标检测（Object detection）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#滑动窗口目标检测（Sliding-windows-detection）"><span class="toc-number">3.1.</span> <span class="toc-text">滑动窗口目标检测（Sliding windows detection）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#卷积的滑动窗口实现-Convolutional-implementation-of-sliding-windows"><span class="toc-number">4.</span> <span class="toc-text">卷积的滑动窗口实现(Convolutional implementation of sliding windows)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#将全连接层转化为卷积层"><span class="toc-number">4.1.</span> <span class="toc-text">将全连接层转化为卷积层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#卷积实现滑动检测"><span class="toc-number">4.2.</span> <span class="toc-text">卷积实现滑动检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bounding-Box预测（Bounding-box-predictions）"><span class="toc-number">5.</span> <span class="toc-text">Bounding Box预测（Bounding box predictions）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#YOLO算法"><span class="toc-number">5.1.</span> <span class="toc-text">YOLO算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#交并比（Intersection-over-union）"><span class="toc-number">5.1.1.</span> <span class="toc-text">交并比（Intersection over union）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非极大值抑制（Non-max-suppression）"><span class="toc-number">5.1.2.</span> <span class="toc-text">非极大值抑制（Non-max suppression）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#锚框（Anchor-boxes）"><span class="toc-number">5.1.3.</span> <span class="toc-text">锚框（Anchor boxes）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#YOLO-Algorithm"><span class="toc-number">5.1.4.</span> <span class="toc-text">YOLO Algorithm</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#区域选择（Region-proposals）"><span class="toc-number">6.</span> <span class="toc-text">区域选择（Region proposals）</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
+  
+  
+  
 
   
+
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </nav>
+
   
 
 
@@ -411,8 +453,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
