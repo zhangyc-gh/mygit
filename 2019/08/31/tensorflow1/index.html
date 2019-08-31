@@ -17,7 +17,7 @@
 <meta property="og:description" content="介绍什么是车标识别？  在开源社区中有一个名为 MobileNet 的模型，该模型能对图像进行分类。Google 发布的 tensorflow-for-poets 项目正好支持这个模型，结合 TensorFlow 与 MobileNet，将其应用于分类不同车标的图片。同时以此作为基础，体验 ML/TF 中不同超参数对训练的影响。  收集并分类车标图像  在拍摄数据集时，需要注意以下几点：  拍摄的">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://s2.ax1x.com/2019/08/31/mxxLw9.png">
-<meta property="og:updated_time" content="2019-08-31T10:53:01.468Z">
+<meta property="og:updated_time" content="2019-08-31T10:54:44.517Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tensorflow实验1 车标分类识别">
 <meta name="twitter:description" content="介绍什么是车标识别？  在开源社区中有一个名为 MobileNet 的模型，该模型能对图像进行分类。Google 发布的 tensorflow-for-poets 项目正好支持这个模型，结合 TensorFlow 与 MobileNet，将其应用于分类不同车标的图片。同时以此作为基础，体验 ML/TF 中不同超参数对训练的影响。  收集并分类车标图像  在拍摄数据集时，需要注意以下几点：  拍摄的">
@@ -240,6 +240,9 @@
 <li>image 表示要预测的图片所在的路径</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">python3 -m scripts.label_image \</span><br><span class="line">--graph=output/retrained_graph_224_0_01.pb  \</span><br><span class="line">--labels=output/retrained_labels_224_0_01.txt  \</span><br><span class="line">--input_height=224 \</span><br><span class="line">--input_width=224 \</span><br><span class="line">--image=test/image.jpg</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> 版权声明：版权所有，翻版不究。</p>
+</blockquote>
 
       
 
