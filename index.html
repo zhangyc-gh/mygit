@@ -146,6 +146,223 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-tensorflow1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/31/tensorflow1/">tensorflow实验1 车标分类识别</a>
+    </h1>
+  
+
+        
+        
+<a href="/2019/08/31/tensorflow1/" class="archive-article-date">
+  	<time datetime="2019-08-31T10:30:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h2 id="什么是车标识别？"><a href="#什么是车标识别？" class="headerlink" title="什么是车标识别？"></a>什么是车标识别？</h2><p>  在开源社区中有一个名为 <code>MobileNet</code> 的模型，该模型能对图像进行分类。<code>Google</code> 发布的 <code>tensorflow-for-poets</code> 项目正好支持这个模型，结合 <code>TensorFlow</code> 与 <code>MobileNet</code>，将其应用于分类不同车标的图片。同时以此作为基础，体验 <code>ML/TF</code> 中不同超参数对训练的影响。 </p>
+<h2 id="收集并分类车标图像"><a href="#收集并分类车标图像" class="headerlink" title="收集并分类车标图像"></a><strong>收集并分类车标图像</strong></h2><p>  在拍摄数据集时，需要注意以下几点：</p>
+<ul>
+<li>拍摄的照片的分辨率最好为 1:1</li>
+<li>拍摄的车标占拍摄图片的大多数区域</li>
+<li>每种车标拍摄相同数量的图片，且每种不少于 200 张</li>
+<li>不要逆光拍摄</li>
+</ul>
+<p>  新建名为 Codelab 的目录，并在该目录下新建名为 data 的目录。新建 Terminal 界面，进入 Codelab 目录，将 Tools/datasets 目录下的图片复制到该目录下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -r ../Tools/datasets/* data</span><br></pre></td></tr></table></figure>
+<p>  在 Codelab/data 目录下上传自己拍摄的图片并解压。（以 image.zip 为例）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unzip image.zip</span><br><span class="line">rm image.zip</span><br></pre></td></tr></table></figure>
+<p>  训练过程中，模型需要知道训练的标签以及每个标签所对应的图片，因此需要将上一步中拍摄的图片按照车标种类分类。本项目的训练程序只需要将相同的车标归类到一个目录下即可，即在训练时传入的标签名即为归类的目录名。</p>
+<p>  本 Codelab 提供的数据集已经按照名称归类，在 Codelab/data 目录下分别新建名为 BUICK、CHANGAN、BMW、NISSAN、GM 的目录，切换到 Terminal 界面并进入 Codelab/data 目录，将对应名称段的图片分别移动到这些目录中。</p>
+<p>·         BUICK:    1521121626331.jpg ~ 1521121911843.jpg</p>
+<p>·         CHANGAN:  1521171197033.jpg ~ 1521171332105.jpg</p>
+<p>·         BMW:    1521187291619.jpg ~ 1521187912599.jpg</p>
+<p>·         NISSAN:   1521189204685.jpg ~ 1521189316223.jpg</p>
+<p>·         GM:     1521257197105.jpg ~ 1521257469684.jpg</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mv 1521121* BUICK</span><br><span class="line">mv 1521171* CHANGAN</span><br><span class="line">mv 1521187* BMW</span><br><span class="line">mv 1521189* NISSAN</span><br><span class="line">mv 1521257* GM</span><br></pre></td></tr></table></figure>
+<h2 id="使用-MobileNet-v1-128-模型"><a href="#使用-MobileNet-v1-128-模型" class="headerlink" title="使用 MobileNet_v1_128 模型"></a><strong>使用</strong> <strong>MobileNet_v1_128</strong> <strong>模型</strong></h2><p>  能实现图像分类的模型有很多，比如 MobileNet、Inception、GoogleNet 等等，每种模型都有各自的特点，下图为 Google 的 Codelab 提供的各图像分类模型对比图，本 Codelab 中选择的是 MobileNet 模型。</p>
+<p><img src="https://s2.ax1x.com/2019/08/31/mxxLw9.png" alt="mxxLw9.png"></p>
+<p>  MobileNet V1 模型目前支持 2 种分辨率的图像，分别为 128$\times$128 和 224$\times$224，不过提供的训练程序会自动将传入的图片转换成指定的分辨率。</p>
+<p>  在 Terminal 界面下声明环境变量，即训练时所要用到的模型以及图像参数。在当前步骤中，我们选择使用 MobileNet 模型，训练图像分辨率为 128*128。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IMAGE_SIZE=128</span><br><span class="line">ARCHITECTURE=&quot;MobileNet_1.0_$&#123;IMAGE_SIZE&#125;&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="训练模型并评估结果"><a href="#训练模型并评估结果" class="headerlink" title="训练模型并评估结果"></a><strong>训练模型并评估结果</strong></h2><p>  车标识别的训练基于 Google 提供的 tensorflow-for-poets 项目，切换到 Terminal 界面，在 Codelab 目录下新建名为 scripts 的目录，进入 Codelab 目录，将 Tools/project 目录下提供的程序复制到该目录下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -r ../Tools/project/* .</span><br></pre></td></tr></table></figure>
+<p>  在 Terminal 界面下进入 Codelab 目录，参照下面的做法执行训练，该项目在训练时会自动把数据集分类成三种数据集，一种是训练集，一种是测试集，一种是验证集，在默认情况下，这三种数据集的比例分别为 80%、10%、10%。</p>
+<ul>
+<li>bottleneck_dir 表示训练集转换后的文件存放的目录</li>
+<li>how_many_training_steps 表示总训练的步数</li>
+<li>model_dir 表示模型文件存放的目录，如果目录下不存在模型则会自动下载</li>
+<li>summaries_dir 表示训练的中间结果存放的目录</li>
+<li>architecture 就是我们前面设置的训练参数；image_dir表示数据集存放的目录。</li>
+<li>testing_percentage 测试集的比例，默认值为 10</li>
+<li>validation_percentage 验证集的比例，默认为 10</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">python3 -m scripts.retrain \</span><br><span class="line">--bottleneck_dir=tmp/bottlenecks \</span><br><span class="line">--how_many_training_steps=5000 \</span><br><span class="line">--model_dir=model \</span><br><span class="line">--summaries_dir=tmp/training_summaries/&quot;$&#123;ARCHITECTURE&#125;&quot; \</span><br><span class="line">--output_graph=output/retrained_graph_128_0_01.pb \</span><br><span class="line">--output_labels=output/retrained_labels_128_0_01.txt \</span><br><span class="line">--architecture=&quot;$&#123;ARCHITECTURE&#125;&quot; \</span><br><span class="line">--testing_percentage=10 \</span><br><span class="line">--validation_percentage=10 \</span><br><span class="line">--image_dir=data \</span><br><span class="line">--learning_rate=0.01</span><br></pre></td></tr></table></figure>
+<p>  在执行训练后，程序会自动下载模型文件并进行训练，并且训练结束后在 output_graph 目录下生成 retrained_graph_128_0_01.pb 文件，在 output_labels 目录下生成 retrained_labels_128_0_01.txt 文件。</p>
+<p>  有两种评估训练结果的方式，一种是通过 Tensorboard 查看训练过程中各个参数的值，一种是执行评估程序直接查看识别准确率。</p>
+<p>  切换到 jupyter 界面，进入 Codelab/tmp/training_summaries 目录，选择在当前目录下进入 Tensorboard 界面。</p>
+<p>  Tensorboard 中的 accuracy_1 的曲线图即为识别的准确率随着训练步数的增加的变化情况。</p>
+<p>  如果想直接查看最终的准确率，先编辑 Codelab/scripts/evaluate.py 文件，根据下面的提示找到并把 5 替换为实际分类的种类数量（不是中文）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"># 找到这段代码</span><br><span class="line"></span><br><span class="line">with load_graph(graph_file_name).as_default() as graph:</span><br><span class="line">    ground_truth_input = tf.placeholder(</span><br><span class="line">        tf.float32, [None, 5], name=&apos;GroundTruthInput&apos;)</span><br><span class="line"></span><br><span class="line">\# 修改为这段代码</span><br><span class="line"></span><br><span class="line">with load_graph(graph_file_name).as_default() as graph:</span><br><span class="line">    ground_truth_input = tf.placeholder(</span><br><span class="line">        tf.float32, [None, (&apos;替换为训练用标签的种类数&apos;)], name=&apos;GroundTruthInput&apos;)</span><br><span class="line">\# --------------------------------------------------------------------</span><br><span class="line">\# 找到这段代码</span><br><span class="line">image_dir = &apos;tf_files/flower_photos&apos;</span><br><span class="line">\# 修改为这段代码</span><br><span class="line">image_dir = &apos;data&apos;</span><br><span class="line">\# --------------------------------------------------------------------</span><br><span class="line">\# 找到这段代码</span><br><span class="line"></span><br><span class="line">with tf.Session(graph=graph) as sess:</span><br><span class="line">    for filename, ground_truth in zip(filenames, ground_truths):    </span><br><span class="line">        image = Image.open(filename).resize((224,224),Image.ANTIALIAS)</span><br><span class="line">\# 修改为这段代码</span><br><span class="line">with tf.Session(graph=graph) as sess:</span><br><span class="line">    for filename, ground_truth in zip(filenames, ground_truths):    </span><br><span class="line">        image = Image.open(filename).resize((128,128),Image.ANTIALIAS)</span><br></pre></td></tr></table></figure>
+<p>  切换到 Terminal 界面，进入 Codelab 目录，执行评估程序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m scripts.evaluate output/retrained_graph_128_0_01.pb</span><br></pre></td></tr></table></figure>
+<p>  输出值中 Accuracy 即为训练的准确率。</p>
+<h2 id="调整-Learning-Rate"><a href="#调整-Learning-Rate" class="headerlink" title="调整 Learning Rate"></a><strong>调整</strong> <strong>Learning Rate</strong></h2><p>  决定最终识别率的因素有三种，一种是训练的模型，一种是数据集的完整性和干净性，另一种是训练的超参数的合理性。</p>
+<p>  超参数即不会在训练过程中随着训练的进行而发生变化的训练参数，在本 Codelab 中，选择 learning_rate 为超参数并将其调整为 0.1、0.001、0.0001、0.00001 再次训练。切换到 Terminal 界面，进入 Codelab 目录，选择不同的 Learning Rate 开始训练。</p>
+<p>  切换到 Terminal 界面，进入 Codelab 目录，执行评估程序。输出值中 Accuracy 即为训练的准确率。</p>
+<p><strong>调整训练分辨率</strong></p>
+<p>  训练时所使用的图像分辨率也是训练的超参数之一，不同的分辨率同样会影响模型的训练结果。在 Learning Rate 为 0.01 的情况下，测试训练图像分辨率为 224*224 时的结果。</p>
+<p>  测试图像分辨率为 224<em>224</em>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IMAGE_SIZE=224</span><br><span class="line">ARCHITECTURE=&quot;MobileNet_1.0_$&#123;IMAGE_SIZE&#125;&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">python3 -m scripts.retrain \</span><br><span class="line">--bottleneck_dir=tmp/bottlenecks \</span><br><span class="line">--how_many_training_steps=5000 \</span><br><span class="line">--model_dir=model \</span><br><span class="line">--summaries_dir=tmp/training_summaries/&quot;$&#123;ARCHITECTURE&#125;&quot; \</span><br><span class="line">--output_graph=output/retrained_graph_224_0_01.pb \</span><br><span class="line">--output_labels=output/retrained_labels_224_0_01.txt \</span><br><span class="line">--architecture=&quot;$&#123;ARCHITECTURE&#125;&quot; \</span><br><span class="line">--testing_percentage=10 \</span><br><span class="line">--validation_percentage=10 \</span><br><span class="line">--image_dir=data \</span><br><span class="line">--learning_rate=0.001</span><br></pre></td></tr></table></figure>
+<p>  编辑 Codelab/scripts/evaluate.py 文件，根据下面的提示找到并修改程序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 找到这段代码</span><br><span class="line">with tf.Session(graph=graph) as sess:</span><br><span class="line">    for filename, ground_truth in zip(filenames, ground_truths):    </span><br><span class="line">        image = Image.open(filename).resize((128,128),Image.ANTIALIAS)</span><br><span class="line">\# 修改为这段代码</span><br><span class="line">with tf.Session(graph=graph) as sess:</span><br><span class="line">    for filename, ground_truth in zip(filenames, ground_truths):    </span><br><span class="line">        image = Image.open(filename).resize((224,224),Image.ANTIALIAS)</span><br></pre></td></tr></table></figure>
+<p>  Terminal 界面，进入 Codelab 目录，执行评估程序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m scripts.evaluate output/retrained_graph_224_0_01.pb</span><br></pre></td></tr></table></figure>
+<p>​        输出值中 Accuracy 即为训练的准确率。</p>
+<h2 id="执行预测"><a href="#执行预测" class="headerlink" title="执行预测"></a><strong>执行预测</strong></h2><p>  在训练完成之后，可能结果会显示准确率 100% ，貌似不太可信啊，我们可以使用另外的交通标志图片进行测试。</p>
+<p>  切换到 jupyter 项目树界面，在 Codelab 目录下新建名为 test 的目录。从网上寻找对应的车标图片，放在 test 目录下，这里寻找的照片不需要特别注意分辨率，测试程序中内置了统一分辨率的功能。</p>
+<p>  参考下面的程序执行在线测试，测试结果会显示在输出中，每次执行会选择目录中的一张图片预测。</p>
+<ul>
+<li>graph 表示训练后生成的 PB 文件所在的路径</li>
+<li>image 表示要预测的图片所在的路径</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">python3 -m scripts.label_image \</span><br><span class="line">--graph=output/retrained_graph_224_0_01.pb  \</span><br><span class="line">--labels=output/retrained_labels_224_0_01.txt  \</span><br><span class="line">--input_height=224 \</span><br><span class="line">--input_width=224 \</span><br><span class="line">--image=test/image.jpg</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">黑胡桃实验室</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/31/tensorflow1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+    <article id="post-deeplearning13" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/30/deeplearning13/">deeplearning学习笔记13 人脸识别&amp;神经风格迁移</a>
+    </h1>
+  
+
+        
+        
+<a href="/2019/08/30/deeplearning13/" class="archive-article-date">
+  	<time datetime="2019-08-30T01:26:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="人脸识别（Face-Recognition）"><a href="#人脸识别（Face-Recognition）" class="headerlink" title="人脸识别（Face Recognition）"></a>人脸识别（Face Recognition）</h2>
+        
+          <a class="article-more-a" href="/2019/08/30/deeplearning13/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/30/deeplearning13/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
     <article id="post-deeplearning12" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -754,158 +971,6 @@
 
 
   
-    <article id="post-deeplearning4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/15/deeplearning4/">deeplearning学习笔记4 深度神经网络</a>
-    </h1>
-  
-
-        
-        
-<a href="/2019/08/15/deeplearning4/" class="archive-article-date">
-  	<time datetime="2019-08-15T12:30:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="深度神经网络"><a href="#深度神经网络" class="headerlink" title="深度神经网络"></a>深度神经网络</h3>
-        
-          <a class="article-more-a" href="/2019/08/15/deeplearning4/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/15/deeplearning4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-deeplearning3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/13/deeplearning3/">deeplearning学习笔记3 浅层神经网络</a>
-    </h1>
-  
-
-        
-        
-<a href="/2019/08/13/deeplearning3/" class="archive-article-date">
-  	<time datetime="2019-08-13T08:32:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="课堂笔记"><a href="#课堂笔记" class="headerlink" title="课堂笔记"></a>课堂笔记</h1><h3 id="准备知识"><a href="#准备知识" class="headerlink" title="准备知识"></a>准备知识</h3>
-        
-          <a class="article-more-a" href="/2019/08/13/deeplearning3/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/13/deeplearning3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1036,6 +1101,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">上辈子是道数学题系列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">黑胡桃实验室</a>
               </li>
             
             <div class="clearfix"></div>
