@@ -18,7 +18,12 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://s2.ax1x.com/2019/08/30/mOIZ36.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/08/30/mOXart.png">
-<meta property="og:updated_time" content="2019-08-30T03:41:01.482Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/31/mzCRPA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/31/mzirAe.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/31/mz4SjP.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/31/mzIMY4.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/31/mzIRAS.png">
+<meta property="og:updated_time" content="2019-08-31T14:47:13.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="deeplearning学习笔记13 人脸识别&amp;神经风格迁移">
 <meta name="twitter:description" content="人脸识别（Face Recognition）">
@@ -202,7 +207,41 @@
 </ul>
 <p>为了减少计算量，可以使用<strong>预计算</strong>的方式在训练时就将数据库每个模板的编码层输出f(x)保存下来。因为编码层输出f(x)比原始图片数据量少很多，所以无须保存模板图片，只要保存每个模板的f(x)即可，节约存储空间。</p>
 <p>而且，测试过程中，无须计算模板的siamese网络，只要计算测试图片的siamese网络，得到的f(x(i))直接与存储的模板f(x(j))进行下一步的逻辑输出单元计算即可，计算时间减小了接近一半。这种方法也可以应用在上一节的triplet loss网络中。</p>
-<h2 id="神经风格迁移（Neural-Style-Transfer）"><a href="#神经风格迁移（Neural-Style-Transfer）" class="headerlink" title="神经风格迁移（Neural Style Transfer）"></a>神经风格迁移（Neural Style Transfer）</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><h3 id="神经网络可视化（What-are-deep-ConvNets-learning）"><a href="#神经网络可视化（What-are-deep-ConvNets-learning）" class="headerlink" title="神经网络可视化（What are deep ConvNets learning）"></a>神经网络可视化（<strong>What are deep ConvNets learning</strong>）</h3><h3 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a>算法过程</h3><h3 id="代价函数定义"><a href="#代价函数定义" class="headerlink" title="代价函数定义"></a>代价函数定义</h3>
+<h2 id="神经风格迁移（Neural-Style-Transfer）"><a href="#神经风格迁移（Neural-Style-Transfer）" class="headerlink" title="神经风格迁移（Neural Style Transfer）"></a>神经风格迁移（Neural Style Transfer）</h2><p>一般用C表示内容图片，S表示风格图片，G表示生成的图片。</p>
+<p><img src="https://s2.ax1x.com/2019/08/31/mzCRPA.png" alt="mzCRPA.png"></p>
+<h3 id="神经网络可视化（What-are-deep-ConvNets-learning）"><a href="#神经网络可视化（What-are-deep-ConvNets-learning）" class="headerlink" title="神经网络可视化（What are deep ConvNets learning）"></a>神经网络可视化（<strong>What are deep ConvNets learning</strong>）</h3><p>遍历所有训练样本，找出让该层激活函数输出最大的9块图像区域；然后再找出该层的其它单元（不同的滤波器通道）激活函数输出最大的9块图像区域；共找9次，得到9 x 9的图像，其中每个3 x 3区域表示一个运算单元。</p>
+<p><img src="https://s2.ax1x.com/2019/08/31/mzirAe.png" alt="mzirAe.png"></p>
+<p>第一层隐藏层一般检测的是原始图像的边缘和颜色阴影等简单信息。随着层数的增加，捕捉的区域更大，特征更加复杂，从边缘到纹理再到具体物体。</p>
+<h3 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a>算法过程</h3><ul>
+<li>随机生成图片G的所有像素点；</li>
+<li>使用梯度下降算法使代价函数最小化，以不断修正G的所有像素点，从而使G逐渐有C的内容和S的风格。</li>
+</ul>
+<p><img src="https://s2.ax1x.com/2019/08/31/mz4SjP.png" alt="mz4SjP.png"></p>
+<h3 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h3><p>$J(G)=\alpha J_{content}(C,G)+\beta J_{style}(S,G)$</p>
+<h4 id="内容代价函数（Content-Cost-Function）"><a href="#内容代价函数（Content-Cost-Function）" class="headerlink" title="内容代价函数（Content Cost Function）"></a>内容代价函数（Content Cost Function）</h4><p>选择一个隐藏层 l 来计算内容代价函数。l 太小则内容图片和生成图片像素级别相似，l 太大则可能只有具体物体级别的相似。所以在实际中，这个层在网络中既不会选的太浅也不会选的太深。然后用一个预训练的卷积模型，可以是<strong>VGG网络</strong>或者其他的网络也可以。</p>
+<p>设a(C)[l]、a(G)[l]为C和G在l层的激活，则有：</p>
+<p>$J_{content}(C,G)=\frac{1}{2}||a^{(C)[l]}-a^{(G)[l]}||^2$</p>
+<p>C和G越相似，则J(C,G)越小。</p>
+<h4 id="风格代价函数（Style-Cost-Function）"><a href="#风格代价函数（Style-Cost-Function）" class="headerlink" title="风格代价函数（Style Cost Function）"></a>风格代价函数（Style Cost Function）</h4><p>利用CNN网络模型，图片的风格可以定义成<strong>第l层隐藏层不同通道间激活函数的乘积（相关性）</strong>。</p>
+<p><img src="https://s2.ax1x.com/2019/08/31/mzIMY4.png" alt="mzIMY4.png"></p>
+<p>红色和黄色分别表示两个不同通道（对应不同特征）。相关性越大，两个特征同时出现的概率越大。</p>
+<p><img src="https://s2.ax1x.com/2019/08/31/mzIRAS.png" alt="mzIRAS.png"></p>
+<p>Gram矩阵表示相关性：$G_{kk’}^{<a href="S">l</a>}=\sum_{i=1}^{a_H^{[l]}} \sum_{j=1}^{a_W^{[l]}} a_{ijk}^{<a href="S">l</a>} a_{ijk’}^{<a href="S">l</a>}$</p>
+<ul>
+<li>i为高度，j为宽度</li>
+<li>k和k’为选定通道（1到$n_c^{[l]}$）</li>
+<li>s代表风格图像</li>
+</ul>
+<p>对于生成图像：$G_{kk’}^{<a href="G">l</a>}=\sum_{i=1}^{a_H^{[l]}}\sum_{j=1}^{a_W^{[l]}} a_{ijk}^{<a href="G">l</a>} a_{ijk’}^{<a href="G">l</a>}$</p>
+<p>第l层风格代价函数：</p>
+<script type="math/tex; mode=display">
+J_{style}^{[l]}(S,G)=\frac{1}{(2n_H^{[l]}n_W^{[l]}n_C^{[l]})^2} \sum_k \sum_{k'} (G_{kk'}^{[l](S)} - G_{kk'}^{[l](G)})^2</script><p>对m层使用风格函数：</p>
+<script type="math/tex; mode=display">
+J_{style}(S,G)=\sum_l \lambda ^{[l]} J_{style}^{[l]}(S,G)</script><p>$\lambda$：不同层数权重</p>
+<blockquote>
+<p>希望下一节课能简单些。    ——鲁迅</p>
+</blockquote>
+
       
 
       
@@ -344,7 +383,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#人脸识别（Face-Recognition）"><span class="toc-number">1.</span> <span class="toc-text">人脸识别（Face Recognition）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#人脸验证（Face-Verification）vs-人脸识别（Face-Recognition）"><span class="toc-number">1.1.</span> <span class="toc-text">人脸验证（Face Verification）vs. 人脸识别（Face Recognition）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#单样本学习（One-Shot-Learning）"><span class="toc-number">1.1.1.</span> <span class="toc-text">单样本学习（One Shot Learning）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#孪生网络（Siamese-Network）"><span class="toc-number">1.2.</span> <span class="toc-text">孪生网络（Siamese Network）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三元组损失函数（Triplet-Loss）"><span class="toc-number">1.3.</span> <span class="toc-text">三元组损失函数（Triplet Loss）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#训练样本"><span class="toc-number">1.3.1.</span> <span class="toc-text">训练样本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Triplet-损失函数"><span class="toc-number">1.3.2.</span> <span class="toc-text">Triplet 损失函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二分类结构"><span class="toc-number">1.4.</span> <span class="toc-text">二分类结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#神经风格迁移（Neural-Style-Transfer）"><span class="toc-number">2.</span> <span class="toc-text">神经风格迁移（Neural Style Transfer）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题描述"><span class="toc-number">2.1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#神经网络可视化（What-are-deep-ConvNets-learning）"><span class="toc-number">2.2.</span> <span class="toc-text">神经网络可视化（What are deep ConvNets learning）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法过程"><span class="toc-number">2.3.</span> <span class="toc-text">算法过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代价函数定义"><span class="toc-number">2.4.</span> <span class="toc-text">代价函数定义</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#人脸识别（Face-Recognition）"><span class="toc-number">1.</span> <span class="toc-text">人脸识别（Face Recognition）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#人脸验证（Face-Verification）vs-人脸识别（Face-Recognition）"><span class="toc-number">1.1.</span> <span class="toc-text">人脸验证（Face Verification）vs. 人脸识别（Face Recognition）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#单样本学习（One-Shot-Learning）"><span class="toc-number">1.1.1.</span> <span class="toc-text">单样本学习（One Shot Learning）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#孪生网络（Siamese-Network）"><span class="toc-number">1.2.</span> <span class="toc-text">孪生网络（Siamese Network）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三元组损失函数（Triplet-Loss）"><span class="toc-number">1.3.</span> <span class="toc-text">三元组损失函数（Triplet Loss）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#训练样本"><span class="toc-number">1.3.1.</span> <span class="toc-text">训练样本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Triplet-损失函数"><span class="toc-number">1.3.2.</span> <span class="toc-text">Triplet 损失函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二分类结构"><span class="toc-number">1.4.</span> <span class="toc-text">二分类结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#神经风格迁移（Neural-Style-Transfer）"><span class="toc-number">2.</span> <span class="toc-text">神经风格迁移（Neural Style Transfer）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#神经网络可视化（What-are-deep-ConvNets-learning）"><span class="toc-number">2.1.</span> <span class="toc-text">神经网络可视化（What are deep ConvNets learning）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法过程"><span class="toc-number">2.2.</span> <span class="toc-text">算法过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代价函数"><span class="toc-number">2.3.</span> <span class="toc-text">代价函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#内容代价函数（Content-Cost-Function）"><span class="toc-number">2.3.1.</span> <span class="toc-text">内容代价函数（Content Cost Function）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#风格代价函数（Style-Cost-Function）"><span class="toc-number">2.3.2.</span> <span class="toc-text">风格代价函数（Style Cost Function）</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
