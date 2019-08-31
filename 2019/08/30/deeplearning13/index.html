@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/08/31/mz4SjP.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/08/31/mzIMY4.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/08/31/mzIRAS.png">
-<meta property="og:updated_time" content="2019-08-31T14:47:13.703Z">
+<meta property="og:updated_time" content="2019-08-31T15:41:37.227Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="deeplearning学习笔记13 人脸识别&amp;神经风格迁移">
 <meta name="twitter:description" content="人脸识别（Face Recognition）">
@@ -226,14 +226,16 @@
 <p><img src="https://s2.ax1x.com/2019/08/31/mzIMY4.png" alt="mzIMY4.png"></p>
 <p>红色和黄色分别表示两个不同通道（对应不同特征）。相关性越大，两个特征同时出现的概率越大。</p>
 <p><img src="https://s2.ax1x.com/2019/08/31/mzIRAS.png" alt="mzIRAS.png"></p>
-<p>Gram矩阵表示相关性：$G_{kk’}^{<a href="S">l</a>}=\sum_{i=1}^{a_H^{[l]}} \sum_{j=1}^{a_W^{[l]}} a_{ijk}^{<a href="S">l</a>} a_{ijk’}^{<a href="S">l</a>}$</p>
-<ul>
+<p>Gram矩阵表示相关性：</p>
+<script type="math/tex; mode=display">
+G_{kk'}^{[l](S)}=\sum_{i=1}^{a_H^{[l]}} \sum_{j=1}^{a_W^{[l]}} a_{ijk}^{[l](S)} a_{ijk'}^{[l](S)}</script><ul>
 <li>i为高度，j为宽度</li>
 <li>k和k’为选定通道（1到$n_c^{[l]}$）</li>
 <li>s代表风格图像</li>
 </ul>
-<p>对于生成图像：$G_{kk’}^{<a href="G">l</a>}=\sum_{i=1}^{a_H^{[l]}}\sum_{j=1}^{a_W^{[l]}} a_{ijk}^{<a href="G">l</a>} a_{ijk’}^{<a href="G">l</a>}$</p>
-<p>第l层风格代价函数：</p>
+<p>对于生成图像：</p>
+<script type="math/tex; mode=display">
+G_{kk'}^{[l](G)}=\sum_{i=1}^{a_H^{[l]}}\sum_{j=1}^{a_W^{[l]}} a_{ijk}^{[l](G)} a_{ijk'}^{[l](G)}</script><p>第l层风格代价函数：</p>
 <script type="math/tex; mode=display">
 J_{style}^{[l]}(S,G)=\frac{1}{(2n_H^{[l]}n_W^{[l]}n_C^{[l]})^2} \sum_k \sum_{k'} (G_{kk'}^{[l](S)} - G_{kk'}^{[l](G)})^2</script><p>对m层使用风格函数：</p>
 <script type="math/tex; mode=display">
