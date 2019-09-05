@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | zero to one</title>
+  <title>deeplearning学习笔记16 序列模型和注意力机制（Sequence models &amp; Attention mechanism） | zero to one</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="zero to one">
-<meta property="og:url" content="http://yoursite.com/archives/2019/page/2/index.html">
+  <meta name="description" content="3.1 基础模型（Basic Models）">
+<meta name="keywords" content="19暑假深度学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="deeplearning学习笔记16 序列模型和注意力机制（Sequence models &amp; Attention mechanism）">
+<meta property="og:url" content="http://yoursite.com/2019/09/05/deeplearning16/index.html">
 <meta property="og:site_name" content="zero to one">
+<meta property="og:description" content="3.1 基础模型（Basic Models）">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/05/ne1dc8.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/05/ne0YNT.png">
+<meta property="og:updated_time" content="2019-09-05T01:32:20.532Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zero to one">
+<meta name="twitter:title" content="deeplearning学习笔记16 序列模型和注意力机制（Sequence models &amp; Attention mechanism）">
+<meta name="twitter:description" content="3.1 基础模型（Basic Models）">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/09/05/ne1dc8.png">
   
     <link rel="alternative" href="/atom.xml" title="zero to one" type="application/atom+xml">
   
@@ -144,37 +152,110 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-deeplearning16" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      deeplearning学习笔记16 序列模型和注意力机制（Sequence models &amp; Attention mechanism）
+    </h1>
+  
+
+        
+                <!-- 不蒜子统计 -->        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次        </span>
+<a href="/2019/09/05/deeplearning16/" class="archive-article-date">
+  	<time datetime="2019-09-04T23:56:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="3-1-基础模型（Basic-Models）"><a href="#3-1-基础模型（Basic-Models）" class="headerlink" title="3.1 基础模型（Basic Models）"></a>3.1 基础模型（Basic Models）</h3><a id="more"></a>
+<p>首先，建立一个编码网络（<strong>encoder network</strong>）（上图编号1所示）网络，它是一个<strong>RNN</strong>的结构， <strong>RNN</strong>的单元可以是<strong>GRU</strong> 也可以是<strong>LSTM</strong>。每次只向该网络中输入一个法语单词，将输入序列接收完毕后，这个<strong>RNN</strong>网络会输出一个向量来代表这个输入序列。之后建立一个解码网络，它以编码网络的输出作为输入，编码网络是左边的黑色部分（上图编号1所示），之后它可以被训练为每次输出一个翻译后的单词，一直到它输出序列的结尾或者句子结尾标记。和往常一样我们把每次生成的标记都传递到下一个单元中来进行预测，就像之前用语言模型合成文本时一样。</p>
+<p><img src="https://s2.ax1x.com/2019/09/05/ne1dc8.png" alt="ne1dc8.png"></p>
+<p>通过输入图像来输出描述:</p>
+<p>将图片输入到卷积神经网络中，比如一个预训练的<strong>AlexNet</strong>结构（上图编号2方框所示），然后让其学习图片的编码。去掉最后的<strong>softmax</strong>单元（上图编号3所示），这个<strong>AlexNet</strong>结构会给你一个4096维的特征向量接着你可以把这个向量输入到<strong>RNN</strong>中（上图编号4方框所示），RNN要做的就是生成图像的描述，每次生成一个单词。</p>
+<h3 id="3-2-选择最可能的句子（Picking-the-most-likely-sentence）"><a href="#3-2-选择最可能的句子（Picking-the-most-likely-sentence）" class="headerlink" title="3.2 选择最可能的句子（Picking the most likely sentence）"></a>3.2 选择最可能的句子（Picking the most likely sentence）</h3><p>机器翻译模型与语言模型的关系：机器翻译模型可以看成是有条件的语言模型。</p>
+<ul>
+<li>相似之处：机器翻译模型的decoder network与语言模型相似；</li>
+<li>不同之处：<ul>
+<li>语言模型：自动生成一条完整语句，语句是随机的；</li>
+<li>机器翻译模型：encoder network可以看成是语言的a<0>a<0>，是模型的一个条件，即在输入语句的条件下，生成正确的翻译语句。</0></0></li>
+</ul>
+</li>
+</ul>
+<h4 id="搜索算法："><a href="#搜索算法：" class="headerlink" title="搜索算法："></a><strong>搜索算法：</strong></h4><ul>
+<li>贪心搜索（Greedy Search）：根据条件，每次只寻找一个最佳单词作为翻译输出，没有考虑该单词前后关系，概率选择上有可能会出错，不符合要求。</li>
+<li>集束搜索（Beam Search）</li>
+</ul>
+<h3 id="3-3-集束搜索（Beam-Search）"><a href="#3-3-集束搜索（Beam-Search）" class="headerlink" title="3.3 集束搜索（Beam Search）"></a>3.3 集束搜索（Beam Search）</h3><p><strong>集束搜索</strong>会考虑每个时间步多个可能的选择。设定一个<strong>集束宽（Beam Width）</strong>B，代表了解码器中每个时间步的预选单词数量。</p>
+<p><strong>例：</strong>B=3，则找出第一个时间步最可能的三个预选单词及其概率值P(y|x)，然后分别将三个预选词作为第二个时间步的输入，得到P(y⟨2⟩|x,y⟨1⟩)。</p>
+<p>特别地，当B=1时，集束搜索就变为贪心搜索。</p>
+<h3 id="3-4-改进集束搜索（Refinements-to-Beam-Search）"><a href="#3-4-改进集束搜索（Refinements-to-Beam-Search）" class="headerlink" title="3.4 改进集束搜索（Refinements to Beam Search）"></a>3.4 改进集束搜索（Refinements to Beam Search）</h3><h4 id="算法改进：长度规范化（Length-Normalization）"><a href="#算法改进：长度规范化（Length-Normalization）" class="headerlink" title="算法改进：长度规范化（Length Normalization）"></a>算法改进：长度规范化（Length Normalization）</h4><p>对于以上得到的结果，存在以下两点问题：</p>
+<ul>
+<li>对于多个小于 1 的概率值相乘后，会造成<strong>数值下溢（Numerical Underflow）</strong>；</li>
+<li>模型倾向于选择单词数更少的翻译语句，使机器翻译受单词数目的影响。</li>
+</ul>
+<p>对于以上问题，对上述乘积形式进行取对数log运算并且进行长度归一化：</p>
+<script type="math/tex; mode=display">
+arg~max \frac{1}{T_y^\alpha} \sum_{t=1}^{T_y}logP(\hat{y}^{<t>}|x,\hat{y}^{<1>},\cdots,\hat{y}^{<t-1>})</script><ul>
+<li>Ty是翻译结果的单词数量；</li>
+<li>α是超参数归一化因子，α=1时完全进行长度归一化，α=0时不进行长度归一化，一般令α=0.7。</li>
+</ul>
+<h4 id="超参数B选取"><a href="#超参数B选取" class="headerlink" title="超参数B选取"></a>超参数B选取</h4><ul>
+<li>较大的BB值意味着可能更好的结果和巨大的计算成本；</li>
+<li>较小的BB值代表较小的计算成本和可能表现较差的结果。</li>
+<li>通常取B=10。</li>
+</ul>
+<h3 id="3-5-集束搜索的误差分析（Error-analysis-in-beam-search）"><a href="#3-5-集束搜索的误差分析（Error-analysis-in-beam-search）" class="headerlink" title="3.5 集束搜索的误差分析（Error analysis in beam search）"></a>3.5 集束搜索的误差分析（Error analysis in beam search）</h3><p>RNN模型问题还是集束搜索算法问题？</p>
+<p>第一种情况，束搜索算法实际上不能够最大化的值，因此束搜索算法出错了。</p>
+<p>第二种情况，虽然是一个更好的翻译结果，<strong>RNN</strong>模型却赋予它更低的可能性，是<strong>RNN</strong>模型出现了问题。</p>
+<h3 id="3-6-Bleu-得分（Bleu-Score）"><a href="#3-6-Bleu-得分（Bleu-Score）" class="headerlink" title="3.6 Bleu 得分（Bleu Score）"></a>3.6 Bleu 得分（Bleu Score）</h3><h3 id="3-7-注意力模型（Attention-Model）"><a href="#3-7-注意力模型（Attention-Model）" class="headerlink" title="3.7 注意力模型（Attention Model）"></a>3.7 注意力模型（Attention Model）</h3><p>在机器翻译问题中，如果原语句很长，要对整个语句输入RNN的编码网络和解码网络进行翻译，效果不佳。对待长语句，正确的翻译方法是像人工翻译那样将长语句分段，每次只对长语句的一部分进行翻译。</p>
+<p>根据这种“<strong>局部聚焦</strong>”的思想，建立了注意力模型。</p>
+<h3 id="3-8语音识别（Speech-recognition）"><a href="#3-8语音识别（Speech-recognition）" class="headerlink" title="3.8语音识别（Speech recognition）"></a>3.8语音识别（Speech recognition）</h3><ul>
+<li><strong>输入：</strong>一段以时间为横轴的音频片段；</li>
+<li><strong>输出：</strong>文本；</li>
+<li><strong>常见预处理步骤：</strong>运行音频片段来生成一个声谱图，并将其作为特征；</li>
+<li><strong>传统方法：</strong>将语音中每个单词分解成多个音素（phoneme）。</li>
+</ul>
+<p><strong>触发字检测（Trigger Word Detection）</strong></p>
+<p><a href="https://imgchr.com/i/ne0YNT" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/09/05/ne0YNT.png" alt="ne0YNT.png"></a></p>
+<p>使用 RNN 来实现触发词检测时，可以将触发词对应的序列的标签设置为“1”，而将其他的标签设置为“0”。但通常训练样本语音中的触发字较非触发字数目少得多，即正负样本分布不均。一种解决办法是在出现一个触发字时，将其附近的RNN都输出1。</p>
+<blockquote>
+<p>注意力模型。/？*%…….‘@#/</p>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您讷~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/21/deeplearning7/" class="archive-article-date">
-  	<time datetime="2019-08-21T08:33:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/21/deeplearning7/">deeplearning学习笔记7 超参数调整和规范化</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -186,295 +267,117 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/05/deeplearning16/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/19/deeplearning6/" class="archive-article-date">
-  	<time datetime="2019-08-19T13:57:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-19</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/03/deeplearning15/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">deeplearning学习笔记15 自然语言处理与词嵌入（Natural Language Processing and Word Embeddings）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/19/deeplearning6/">deeplearning学习笔记6 优化深度神经网络</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-基础模型（Basic-Models）"><span class="toc-number">1.</span> <span class="toc-text">3.1 基础模型（Basic Models）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-选择最可能的句子（Picking-the-most-likely-sentence）"><span class="toc-number">2.</span> <span class="toc-text">3.2 选择最可能的句子（Picking the most likely sentence）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#搜索算法："><span class="toc-number">2.1.</span> <span class="toc-text">搜索算法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-集束搜索（Beam-Search）"><span class="toc-number">3.</span> <span class="toc-text">3.3 集束搜索（Beam Search）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-改进集束搜索（Refinements-to-Beam-Search）"><span class="toc-number">4.</span> <span class="toc-text">3.4 改进集束搜索（Refinements to Beam Search）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#算法改进：长度规范化（Length-Normalization）"><span class="toc-number">4.1.</span> <span class="toc-text">算法改进：长度规范化（Length Normalization）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#超参数B选取"><span class="toc-number">4.2.</span> <span class="toc-text">超参数B选取</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-集束搜索的误差分析（Error-analysis-in-beam-search）"><span class="toc-number">5.</span> <span class="toc-text">3.5 集束搜索的误差分析（Error analysis in beam search）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-Bleu-得分（Bleu-Score）"><span class="toc-number">6.</span> <span class="toc-text">3.6 Bleu 得分（Bleu Score）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-注意力模型（Attention-Model）"><span class="toc-number">7.</span> <span class="toc-text">3.7 注意力模型（Attention Model）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8语音识别（Speech-recognition）"><span class="toc-number">8.</span> <span class="toc-text">3.8语音识别（Speech recognition）</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/17/deeplearning5/" class="archive-article-date">
-  	<time datetime="2019-08-17T13:20:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-17</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/17/deeplearning5/">deeplearning学习笔记5 超参数调整和正则化</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/15/deeplearning4/" class="archive-article-date">
-  	<time datetime="2019-08-15T12:30:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/15/deeplearning4/">deeplearning学习笔记4 深度神经网络</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/13/deeplearning3/" class="archive-article-date">
-  	<time datetime="2019-08-13T08:32:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/13/deeplearning3/">deeplearning学习笔记3 浅层神经网络</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/11/deeplearning2/" class="archive-article-date">
-  	<time datetime="2019-08-11T11:19:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/11/deeplearning2/">deeplearning学习笔记2 神经网络基础知识</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/09/deeplearning1/" class="archive-article-date">
-  	<time datetime="2019-08-09T13:46:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/09/deeplearning1/">deeplearning学习笔记1 引言</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/08/08/huihuitql/" class="archive-article-date">
-  	<time datetime="2019-08-08T14:07:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/08/huihuitql/">喵辉部长是男神</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">上辈子是道数学题系列</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2019/">&laquo; Prev</a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -509,8 +412,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
