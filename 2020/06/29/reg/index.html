@@ -6,16 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>reg | zero to one</title>
+  <title>python正则 | zero to one</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="reg">
+  <meta name="description" content="正则表达式">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python正则">
 <meta property="og:url" content="http://yoursite.com/2020/06/29/reg/index.html">
 <meta property="og:site_name" content="zero to one">
+<meta property="og:description" content="正则表达式">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-06-29T01:31:20.050Z">
+<meta property="og:image" content="https://morvanzhou.github.io/static/results/basic/13-10-01.png">
+<meta property="og:updated_time" content="2020-06-29T02:22:28.688Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="reg">
+<meta name="twitter:title" content="python正则">
+<meta name="twitter:description" content="正则表达式">
+<meta name="twitter:image" content="https://morvanzhou.github.io/static/results/basic/13-10-01.png">
   
     <link rel="alternative" href="/atom.xml" title="zero to one" type="application/atom+xml">
   
@@ -152,7 +158,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      reg
+      python正则
     </h1>
   
 
@@ -166,7 +172,47 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><a id="more"></a>
+<p><img src="https://morvanzhou.github.io/static/results/basic/13-10-01.png" alt="正则表达式"></p>
+<h2 id="匹配多种可能-使用"><a href="#匹配多种可能-使用" class="headerlink" title="匹配多种可能 使用 []"></a>匹配多种可能 使用 []</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ptn = <span class="string">r"r[au]n"</span></span><br><span class="line">print(re.search(ptn, <span class="string">"dog runs to cat"</span>))</span><br></pre></td></tr></table></figure>
+<_sre.sre_match object; span="(4," 7), match="run">
+
+<h2 id="匹配更多种可能"><a href="#匹配更多种可能" class="headerlink" title="匹配更多种可能"></a>匹配更多种可能</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(re.search(<span class="string">r"r[0-9a-z]n"</span>, <span class="string">"dog runs to cat"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;_sre.SRE_Match object; span=(4, 7), match=&apos;run&apos;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="特殊种类匹配"><a href="#特殊种类匹配" class="headerlink" title="特殊种类匹配"></a>特殊种类匹配</h2><h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># \d : decimal digit</span></span><br><span class="line">print(re.search(<span class="string">r"r\dn"</span>, <span class="string">"run r4n"</span>))             </span><br><span class="line"><span class="comment"># \D : any non-decimal digit</span></span><br><span class="line">print(re.search(<span class="string">r"r\Dn"</span>, <span class="string">"run r4n"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;_sre.SRE_Match object; span=(4, 7), match=&apos;r4n&apos;&gt;</span><br><span class="line">&lt;_sre.SRE_Match object; span=(0, 3), match=&apos;run&apos;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="空白"><a href="#空白" class="headerlink" title="空白"></a>空白</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># \s : any white space [\t\n\r\f\v]</span></span><br><span class="line">print(re.search(<span class="string">r"r\sn"</span>, <span class="string">"r\nn r4n"</span>))               </span><br><span class="line"><span class="comment"># \S : opposite to \s, any non-white space</span></span><br><span class="line">print(re.search(<span class="string">r"r\Sn"</span>, <span class="string">"r\nn r4n"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;_sre.SRE_Match object; span=(0, 3), match=&apos;r\nn&apos;&gt;</span><br><span class="line">&lt;_sre.SRE_Match object; span=(4, 7), match=&apos;r4n&apos;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="所有字母数字和”-”"><a href="#所有字母数字和”-”" class="headerlink" title="所有字母数字和”_”"></a>所有字母数字和”_”</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># \w : [a-zA-Z0-9_]</span></span><br><span class="line">print(re.search(<span class="string">r"r\wn"</span>, <span class="string">"r\nn r4n"</span>))               </span><br><span class="line"><span class="comment"># \W : opposite to \w</span></span><br><span class="line">print(re.search(<span class="string">r"r\Wn"</span>, <span class="string">"r\nn r4n"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;_sre.SRE_Match object; span=(4, 7), match=&apos;r4n&apos;&gt;</span><br><span class="line">&lt;_sre.SRE_Match object; span=(0, 3), match=&apos;r\nn&apos;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="空白字符"><a href="#空白字符" class="headerlink" title="空白字符"></a>空白字符</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># \b : empty string (only at the start or end of the word)</span></span><br><span class="line">print(re.search(<span class="string">r"\bruns\b"</span>, <span class="string">"dog runs to cat"</span>))    </span><br><span class="line"><span class="comment"># \B : empty string (but not at the start or end of a word)</span></span><br><span class="line">print(re.search(<span class="string">r"\B runs \B"</span>, <span class="string">"dog   runs  to cat"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;_sre.SRE_Match object; span=(4, 8), match=&apos;runs&apos;&gt;</span><br><span class="line">&lt;_sre.SRE_Match object; span=(5, 11), match=&apos; runs &apos;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="特殊字符-任意字符"><a href="#特殊字符-任意字符" class="headerlink" title="特殊字符 任意字符"></a>特殊字符 任意字符</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># \\ : match \</span></span><br><span class="line">print(re.search(<span class="string">r"runs\\"</span>, <span class="string">"runs\ to me"</span>))          </span><br><span class="line"><span class="comment"># . : match anything (except \n)</span></span><br><span class="line">print(re.search(<span class="string">r"r.n"</span>, <span class="string">"r[ns to me"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;_sre.SRE_Match object; span=(0, 5), match=&apos;runs\\&apos;&gt;</span><br><span class="line">&lt;_sre.SRE_Match object; span=(0, 3), match=&apos;r[n&apos;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="句尾句首"><a href="#句尾句首" class="headerlink" title="句尾句首"></a>句尾句首</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ^ : match line beginning</span></span><br><span class="line">print(re.search(<span class="string">r"^dog"</span>, <span class="string">"dog runs to cat"</span>))        </span><br><span class="line"><span class="comment"># $ : match line ending</span></span><br><span class="line">print(re.search(<span class="string">r"cat$"</span>, <span class="string">"dog runs to cat"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;_sre.SRE_Match object; span=(0, 3), match=&apos;dog&apos;&gt;</span><br><span class="line">&lt;_sre.SRE_Match object; span=(12, 15), match=&apos;cat&apos;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="是否"><a href="#是否" class="headerlink" title="是否"></a>是否</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ? : may or may not occur</span></span><br><span class="line">print(re.search(<span class="string">r"Mon(day)?"</span>, <span class="string">"Monday"</span>))            </span><br><span class="line">print(re.search(<span class="string">r"Mon(day)?"</span>, <span class="string">"Mon"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;_sre.SRE_Match object; span=(0, 6), match=&apos;Monday&apos;&gt;</span><br><span class="line">&lt;_sre.SRE_Match object; span=(0, 3), match=&apos;Mon&apos;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="多行匹配"><a href="#多行匹配" class="headerlink" title="多行匹配"></a>多行匹配</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># multi-line</span></span><br><span class="line">string = <span class="string">"""</span></span><br><span class="line"><span class="string">dog runs to cat.</span></span><br><span class="line"><span class="string">I run to dog.</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">print(re.search(<span class="string">r"^I"</span>, string))                     </span><br><span class="line">print(re.search(<span class="string">r"^I"</span>, string, flags=re.M))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">None</span><br><span class="line">&lt;_sre.SRE_Match object; span=(18, 19), match=&apos;I&apos;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="0或多次"><a href="#0或多次" class="headerlink" title="0或多次"></a>0或多次</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># * : occur 0 or more times</span></span><br><span class="line">print(re.search(<span class="string">r"ab*"</span>, <span class="string">"a"</span>))                       </span><br><span class="line">print(re.search(<span class="string">r"ab*"</span>, <span class="string">"abbbbb"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;_sre.SRE_Match object; span=(0, 1), match=&apos;a&apos;&gt;</span><br><span class="line">&lt;_sre.SRE_Match object; span=(0, 6), match=&apos;abbbbb&apos;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="1或多次"><a href="#1或多次" class="headerlink" title="1或多次"></a>1或多次</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># + : occur 1 or more times</span></span><br><span class="line">print(re.search(<span class="string">r"ab+"</span>, <span class="string">"a"</span>))                       </span><br><span class="line">print(re.search(<span class="string">r"ab+"</span>, <span class="string">"abbbbb"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">None</span><br><span class="line">&lt;_sre.SRE_Match object; span=(0, 6), match=&apos;abbbbb&apos;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="可选次数"><a href="#可选次数" class="headerlink" title="可选次数"></a>可选次数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &#123;n, m&#125; : occur n to m times</span></span><br><span class="line">print(re.search(<span class="string">r"ab&#123;2,10&#125;"</span>, <span class="string">"a"</span>))                  </span><br><span class="line">print(re.search(<span class="string">r"ab&#123;2,10&#125;"</span>, <span class="string">"abbbbb"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">None</span><br><span class="line">&lt;_sre.SRE_Match object; span=(0, 6), match=&apos;abbbbb&apos;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="group-组"><a href="#group-组" class="headerlink" title="group 组"></a>group 组</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># group</span></span><br><span class="line">match = re.search(<span class="string">r"(\d+), Date: (.+)"</span>, <span class="string">"ID: 021523, Date: Feb/12/2017"</span>)</span><br><span class="line">print(match.group())                                </span><br><span class="line">print(match.group(<span class="number">1</span>))                               </span><br><span class="line">print(match.group(<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">021523, Date: Feb/12/2017</span><br><span class="line">021523</span><br><span class="line">Feb/12/2017</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">match = re.search(<span class="string">r"(?P&lt;id&gt;\d+), Date: (?P&lt;date&gt;.+)"</span>, <span class="string">"ID: 021523, Date: Feb/12/2017"</span>)</span><br><span class="line">print(match.group(<span class="string">'id'</span>))                            </span><br><span class="line">print(match.group(<span class="string">'date'</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">021523</span><br><span class="line">Feb/12/2017</span><br></pre></td></tr></table></figure>
+<h2 id="寻找所有匹配"><a href="#寻找所有匹配" class="headerlink" title="寻找所有匹配"></a>寻找所有匹配</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># findall</span></span><br><span class="line">print(re.findall(<span class="string">r"r[ua]n"</span>, <span class="string">"run ran ren"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&apos;run&apos;, &apos;ran&apos;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># | : or</span></span><br><span class="line">print(re.findall(<span class="string">r"(run|ran)"</span>, <span class="string">"run ran ren"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&apos;run&apos;, &apos;ran&apos;]</span><br></pre></td></tr></table></figure>
+<h2 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># re.sub() replace</span></span><br><span class="line">print(re.sub(<span class="string">r"r[au]ns"</span>, <span class="string">"catches"</span>, <span class="string">"dog runs to cat"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dog catches to cat</span><br></pre></td></tr></table></figure>
+<h2 id="分裂"><a href="#分裂" class="headerlink" title="分裂"></a>分裂</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># re.split()</span></span><br><span class="line">print(re.split(<span class="string">r"[,;\.]"</span>, <span class="string">"a;b,c.d;e"</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos;]</span><br></pre></td></tr></table></figure></_sre.sre_match>
       
 
       
@@ -195,6 +241,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -419,6 +476,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">上辈子是道数学题系列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
