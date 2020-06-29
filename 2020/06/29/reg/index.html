@@ -6,30 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>deeplearning学习笔记15 自然语言处理与词嵌入（Natural Language Processing and Word Embeddings） | zero to one</title>
+  <title>reg | zero to one</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="2.1 词汇表征（Word Representation）">
-<meta name="keywords" content="19暑假深度学习">
-<meta property="og:type" content="article">
-<meta property="og:title" content="deeplearning学习笔记15 自然语言处理与词嵌入（Natural Language Processing and Word Embeddings）">
-<meta property="og:url" content="http://yoursite.com/2019/09/03/deeplearning15/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="reg">
+<meta property="og:url" content="http://yoursite.com/2020/06/29/reg/index.html">
 <meta property="og:site_name" content="zero to one">
-<meta property="og:description" content="2.1 词汇表征（Word Representation）">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/03/nk1xzQ.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/03/nk829O.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/03/nA9SI0.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/04/nZ4Nxx.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/04/nZ7WVK.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/05/neluLQ.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/05/nel6SK.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/05/nel0oR.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/05/nelXwj.png">
-<meta property="og:updated_time" content="2019-09-04T23:53:55.419Z">
+<meta property="og:updated_time" content="2020-06-29T01:31:20.050Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="deeplearning学习笔记15 自然语言处理与词嵌入（Natural Language Processing and Word Embeddings）">
-<meta name="twitter:description" content="2.1 词汇表征（Word Representation）">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/09/03/nk1xzQ.png">
+<meta name="twitter:title" content="reg">
   
     <link rel="alternative" href="/atom.xml" title="zero to one" type="application/atom+xml">
   
@@ -159,93 +145,28 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-deeplearning15" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-reg" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      deeplearning学习笔记15 自然语言处理与词嵌入（Natural Language Processing and Word Embeddings）
+      reg
     </h1>
   
 
         
                 <!-- 不蒜子统计 -->        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次        </span>
-<a href="/2019/09/03/deeplearning15/" class="archive-article-date">
-  	<time datetime="2019-09-03T06:35:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-03</time>
+<a href="/2020/06/29/reg/" class="archive-article-date">
+  	<time datetime="2020-06-29T01:31:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="2-1-词汇表征（Word-Representation）"><a href="#2-1-词汇表征（Word-Representation）" class="headerlink" title="2.1 词汇表征（Word Representation）"></a>2.1 词汇表征（Word Representation）</h3><a id="more"></a>
-<p>词嵌入（<strong>word embeddings</strong>）：语言表示的一种方式，可以让算法自动的理解一些类似的词，比如男人对女人，比如国王对王后。</p>
-<p>用<strong>词汇表表示词</strong>的缺点：把每个词孤立起来，这样使得算法对相关词的泛化能力不强。例如：即使算法已经学到了“<strong>I want a glass of orange juice</strong>”这样一个句子，但如果看到“<strong>I want a glass of apple ___</strong>”，因为算法不知道<strong>apple</strong>和<strong>orange</strong>的关系很接近，也不会写入juice。</p>
-<p>换一种表示方式，如果不用<strong>one-hot</strong>，而是用特征化的表示来表示每个词：</p>
-<p><img src="https://s2.ax1x.com/2019/09/03/nk1xzQ.png" alt="nk1xzQ.png"></p>
-<script type="math/tex; mode=display">
-\text{Gender（性别） Royal（高贵） Age（年龄） Food（食物）}\\
-......</script><p><strong>t-SNE算法</strong>：</p>
-<p><img src="https://s2.ax1x.com/2019/09/03/nk829O.png" alt="nk829O.png"></p>
-<p><strong>被称为嵌入的原因：</strong>为了可视化，<strong>t-SNE算法</strong>把这个空间映射到低维空间，你可以画出一个2维图像然后观察，这就是这个术语嵌入的来源。</p>
-<h3 id="2-2-使用词嵌入（Using-Word-Embeddings）"><a href="#2-2-使用词嵌入（Using-Word-Embeddings）" class="headerlink" title="2.2 使用词嵌入（Using Word Embeddings）"></a>2.2 使用词嵌入（Using Word Embeddings）</h3><p>以判断人名为例：</p>
-<script type="math/tex; mode=display">
-\text{Robert Lin is an apple farmer.}\\
-\text{Robert Lin is a durian cultivator.}</script><p>训练集里可能没有<strong>durian</strong>（<strong>榴莲</strong>）或者<strong>cultivator</strong>（<strong>培育家</strong>）这两个词。但是如果有词嵌入，它会告诉你<strong>durian</strong>（<strong>榴莲</strong>）是水果，并且<strong>cultivator</strong>（<strong>培育家</strong>）其实跟<strong>farmer</strong>（<strong>农民</strong>）差不多，那么就有可能从训练集里的“<strong>an orange farmer</strong>”（<strong>种橙子的农民</strong>）归纳出“<strong>a durian cultivator</strong>”（<strong>榴莲培育家</strong>）也是一个人。</p>
-<h4 id="词嵌入有效的原因"><a href="#词嵌入有效的原因" class="headerlink" title="词嵌入有效的原因"></a>词嵌入有效的原因</h4><p>词嵌入的算法会考察非常大的文本集，（也许是从网上找到的）通过读取大量的互联网文本发现了<strong>orange</strong>（<strong>橙子</strong>）和<strong>durian</strong>（<strong>榴莲</strong>）都是水果。</p>
-<p>接下来可以把这个词嵌入应用到命名实体识别任务当中，尽管只有一个很小的训练集，也许训练集里有100,000个单词，甚至更小，但可以使用迁移学习。<code>注：应该用双向RNN</code></p>
-<p>词嵌入和人脸编码之间有奇妙的关系，对于人脸识别，我们训练了一个<strong>Siamese</strong>网络结构，这个网络会学习不同人脸的一个128维表示，然后通过比较编码结果来判断两个图片是否是同一个人脸。这里的术语编码（<strong>encoding</strong>）和嵌入（<strong>embedding</strong>）可以互换，所以刚才讲的差别不是因为术语不一样，这个差别就是，人脸识别中的算法未来可能涉及到海量的人脸照片，而自然语言处理有一个固定的词汇表，而像一些没有出现过的单词我们就记为未知单词。</p>
-<h3 id="2-3-词嵌入的特性（Properties-of-Word-Embeddings）"><a href="#2-3-词嵌入的特性（Properties-of-Word-Embeddings）" class="headerlink" title="2.3 词嵌入的特性（Properties of Word Embeddings）"></a>2.3 词嵌入的特性（Properties of Word Embeddings）</h3><p>词嵌入可用于类比推理。例如，给定对应关系“男性（Man）”对“女性（Woman）”，想要类比出“国王（King）”对应的词汇。则可以有$e_{man}−e_{woman}≈e_{king}−e_?$，之后的目标就是找到词向量$w$，来找到使相似度$sim(e_w,e_{king}−e_{man}+e_{woman})$最大。</p>
-<p>一个最常用的相似度计算函数是<strong>余弦相似度（cosion similarity）</strong>，公式为：</p>
-<script type="math/tex; mode=display">
-sim(u,v)=\frac{u^Tv}{||u||_2||v||_2}</script><h3 id="2-4-嵌入矩阵（Embedding-Matrix）"><a href="#2-4-嵌入矩阵（Embedding-Matrix）" class="headerlink" title="2.4 嵌入矩阵（Embedding Matrix）"></a>2.4 嵌入矩阵（Embedding Matrix）</h3><p>假设某个词汇库包含了10000个单词，每个单词包含的特征维度为300，那么表征所有单词的词嵌入矩阵维度为300 x 10000，用$E$表示。某单词$w$的one-hot向量表示为$O_w$，维度为10000 x 1，则该单词的特征向量表达式为：</p>
-<script type="math/tex; mode=display">
-e_w=E·O_w</script><p>因此，只要知道了词嵌入矩阵，就能计算出所有单词的特征向量。</p>
-<p>注：这种矩阵乘积运算效率并不高。通常做法是直接从$E$中选取第w列作为$e_w$即可。</p>
-<h4 id="2-5-学习词嵌入（Learning-Word-Embeddings）"><a href="#2-5-学习词嵌入（Learning-Word-Embeddings）" class="headerlink" title="2.5 学习词嵌入（Learning Word Embeddings）"></a>2.5 学习词嵌入（Learning Word Embeddings）</h4><p>学习目标：词嵌入矩阵$E$</p>
-<h4 id="神经概率语言模型（Neural-Probabilistic-Language-Model）"><a href="#神经概率语言模型（Neural-Probabilistic-Language-Model）" class="headerlink" title="神经概率语言模型（Neural Probabilistic Language Model）"></a>神经概率语言模型（Neural Probabilistic Language Model）</h4><p><img src="https://s2.ax1x.com/2019/09/03/nA9SI0.png" alt="nA9SI0.png"></p>
-<p>训练过程中，将语料库中的某些词作为目标词，以目标词的部分上下文作为输入，Softmax 输出的预测结果为目标词，正确的输出label是“juice”。嵌入矩阵 E 和 w、b 为需要通过训练得到的参数。</p>
-<p>为了让神经网络输入层数目固定，可以选择只取预测单词的前4个单词作为输入，例如该句中只选择“a glass of orange”四个单词作为输入。</p>
-<p><strong>把输入叫做context，输出叫做target</strong>。对应到上面这句话里：</p>
-<ul>
-<li>context: a glass of orange</li>
-<li>target: juice </li>
-</ul>
-<p><strong>context的选择方法：</strong> </p>
-<ul>
-<li>target前n个单词或后n个单词，n可调</li>
-<li>target前1个单词</li>
-<li>target附近某1个单词（Skip-Gram）</li>
-</ul>
-<h3 id="2-6-Word2Vec"><a href="#2-6-Word2Vec" class="headerlink" title="2.6 Word2Vec"></a>2.6 Word2Vec</h3><h4 id="Skip-Gram模型"><a href="#Skip-Gram模型" class="headerlink" title="Skip-Gram模型"></a>Skip-Gram模型</h4><p>首先随机选择一个单词作为context，例如”orange”；</p>
-<p>然后使用一个宽度为5或10的滑动窗，在context附近选择一个单词作为target，可以是”juice“、”glass“、”my“等。</p>
-<p><strong>softmax单元输出：</strong>$\hat{y}=\frac{e^{\theta_t^{T}·e_c}}{\sum_{j=1}^{10000}e^{\theta_j^{T}·e_c}}$，其中$θ$是target对应的参数，$e_c$为context的embedding vector。</p>
-<p><strong>Loss Function：</strong>$L(\hat{y},y)=-\sum_{i=1}^{10000}y_i log\hat{y}_i$</p>
-<p>缺点：在Softmax中，每次计算条件概率时，需要对词典中的所有词做求和操作，因此计算量很大。</p>
-<h3 id="2-7-负采样（Negative-Sampling）"><a href="#2-7-负采样（Negative-Sampling）" class="headerlink" title="2.7 负采样（Negative Sampling）"></a>2.7 负采样（Negative Sampling）</h3><p><img src="https://s2.ax1x.com/2019/09/04/nZ4Nxx.png" alt="nZ4Nxx.png"></p>
-<p>如上图所示，当输入的词为一对上下文-目标词时，标签设置为 1。另外任意取 k 对非上下文-目标词作为负样本，标签设置为 0。 </p>
-<p>改用多个 Sigmoid 输出上下文-目标词（c, t）为正样本的概率：</p>
-<script type="math/tex; mode=display">
-P(y=1|c,t)=\sigma(\theta_t^T e_c)</script><p>之前训练中每次要更新 n 维的多分类 Softmax 单元（n 为词典中词的数量）。现在每次只需要更新 k+1 维的二分类 Sigmoid 单元，计算量大大降低。</p>
-<p>关于计算选择某个词作为负样本的概率，作者推荐采用以下公式（而非经验频率或均匀分布）：</p>
-<script type="math/tex; mode=display">
-p(w_i)=\frac{f(w_i)^{\frac{3}{4}}}{\sum_{j=0}^{m} f(w_j)^{\frac{3}{4}}}</script><p>其中，$f(w_i)$代表语料库中单词$w_i$出现的频率。上述公式更加平滑，能够增加低频词的选取可能。</p>
-<h3 id="2-8-GloVe-词向量（GloVe-Word-Vectors）"><a href="#2-8-GloVe-词向量（GloVe-Word-Vectors）" class="headerlink" title="2.8 GloVe 词向量（GloVe Word Vectors）"></a>2.8 GloVe 词向量（GloVe Word Vectors）</h3><h3 id="2-9-情绪分类（Sentiment-Classification）"><a href="#2-9-情绪分类（Sentiment-Classification）" class="headerlink" title="2.9 情绪分类（Sentiment Classification）"></a>2.9 情绪分类（Sentiment Classification）</h3><h4 id="简单模型"><a href="#简单模型" class="headerlink" title="简单模型"></a>简单模型</h4><p><img src="https://s2.ax1x.com/2019/09/04/nZ7WVK.png" alt="nZ7WVK.png"></p>
-<p><strong>缺点：</strong>使用平均法，没有考虑句子中单词出现的次序，忽略其位置信息。而有时候，不同单词出现的次序直接决定了句意。</p>
-<h4 id="RNN模型（many-to-one）"><a href="#RNN模型（many-to-one）" class="headerlink" title="RNN模型（many-to-one）"></a>RNN模型（many-to-one）</h4><p><img src="https://s2.ax1x.com/2019/09/05/neluLQ.png" alt="neluLQ.png"></p>
-<h3 id="2-10-词嵌入除偏（Debiasing-Word-Embeddings）"><a href="#2-10-词嵌入除偏（Debiasing-Word-Embeddings）" class="headerlink" title="2.10 词嵌入除偏（Debiasing Word Embeddings）"></a>2.10 词嵌入除偏（Debiasing Word Embeddings）</h3><p><strong>词嵌入除偏的步骤：</strong>以性别歧视为例</p>
-<p><img src="https://s2.ax1x.com/2019/09/05/nel6SK.png" alt="nel6SK.png"></p>
-<p>一、$e_{he}-e_{she}$，$e_{male}-e_{female}$，将这些差简单地求平均。这个趋势（上图编号3所示）看起来就是性别趋势或说是偏见趋势，然后这个趋势（上图编号4所示）与尝试处理的特定偏见并不相关，因此这就是个无偏见趋势。在这种情况下，偏见趋势可以将它看做<strong>1D</strong>子空间，所以这个无偏见趋势就会是<strong>299D</strong>的子空间。</p>
-<p><img src="https://s2.ax1x.com/2019/09/05/nel0oR.png" alt="nel0oR.png"></p>
-<p>二、中和步骤，有些词本质上就和性别有关，有一些词像<strong>doctor</strong>和<strong>babysitter</strong>我们想使之在性别方面是中立的。对于那些定义不明确的词，它的基本意思是不像<strong>grandmother</strong>和<strong>grandfather</strong>这种定义里有着十分合理的性别含义的。所以对于像<strong>doctor</strong>和<strong>babysitter</strong>这种单词我们就可以将它们在这个轴（上图编号1所示）上进行处理，来减少或是消除他们的性别歧视趋势的成分，也就是说减少他们在这个水平方向上的距离（上图编号2方框内所示的投影），所以这就是第二个中和步。</p>
-<p><img src="https://s2.ax1x.com/2019/09/05/nelXwj.png" alt="nelXwj.png"></p>
-<p>三、均衡步，在这个例子中，<strong>babysitter</strong>和<strong>grandmother</strong>之间的距离或者说是相似度实际上是小于<strong>babysitter</strong>和<strong>grandfather</strong>之间的（上图编号1所示），因此这可能会加重不良状态，也就是说<strong>grandmothers</strong>相比于<strong>grandfathers</strong>最终更有可能输出<strong>babysitting</strong>。将<strong>grandmother</strong>和<strong>grandfather</strong>移至与中间轴线等距的一对点上（上图编号2所示），现在性别歧视的影响也就是这两个词与<strong>babysitter</strong>的距离就完全相同了（上图编号3所示）。</p>
-<blockquote>
-<p>EOF.</p>
-</blockquote>
-
+        
       
 
       
@@ -274,17 +195,6 @@ p(w_i)=\frac{f(w_i)^{\frac{3}{4}}}{\sum_{j=0}^{m} f(w_j)^{\frac{3}{4}}}</script>
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">19暑假深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -335,7 +245,7 @@ p(w_i)=\frac{f(w_i)^{\frac{3}{4}}}{\sum_{j=0}^{m} f(w_j)^{\frac{3}{4}}}</script>
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/03/deeplearning15/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/06/29/reg/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -349,18 +259,9 @@ p(w_i)=\frac{f(w_i)^{\frac{3}{4}}}{\sum_{j=0}^{m} f(w_j)^{\frac{3}{4}}}</script>
   
 <nav id="article-nav">
   
-    <a href="/2019/09/05/deeplearning16/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          deeplearning学习笔记16 序列模型和注意力机制（Sequence models &amp; Attention mechanism）
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/09/01/deeplearning14/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">deeplearning学习笔记14 循环神经网络（Recurrent Neural Network）</div>
+    <a href="/2019/09/05/deeplearning16/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">deeplearning学习笔记16 序列模型和注意力机制（Sequence models &amp; Attention mechanism）</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -379,19 +280,6 @@ p(w_i)=\frac{f(w_i)^{\frac{3}{4}}}{\sum_{j=0}^{m} f(w_j)^{\frac{3}{4}}}</script>
             </div>
         </div>
         
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-词汇表征（Word-Representation）"><span class="toc-number">1.</span> <span class="toc-text">2.1 词汇表征（Word Representation）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-使用词嵌入（Using-Word-Embeddings）"><span class="toc-number">2.</span> <span class="toc-text">2.2 使用词嵌入（Using Word Embeddings）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#词嵌入有效的原因"><span class="toc-number">2.1.</span> <span class="toc-text">词嵌入有效的原因</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-词嵌入的特性（Properties-of-Word-Embeddings）"><span class="toc-number">3.</span> <span class="toc-text">2.3 词嵌入的特性（Properties of Word Embeddings）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-嵌入矩阵（Embedding-Matrix）"><span class="toc-number">4.</span> <span class="toc-text">2.4 嵌入矩阵（Embedding Matrix）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-学习词嵌入（Learning-Word-Embeddings）"><span class="toc-number">4.1.</span> <span class="toc-text">2.5 学习词嵌入（Learning Word Embeddings）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#神经概率语言模型（Neural-Probabilistic-Language-Model）"><span class="toc-number">4.2.</span> <span class="toc-text">神经概率语言模型（Neural Probabilistic Language Model）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-Word2Vec"><span class="toc-number">5.</span> <span class="toc-text">2.6 Word2Vec</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Skip-Gram模型"><span class="toc-number">5.1.</span> <span class="toc-text">Skip-Gram模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-负采样（Negative-Sampling）"><span class="toc-number">6.</span> <span class="toc-text">2.7 负采样（Negative Sampling）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8-GloVe-词向量（GloVe-Word-Vectors）"><span class="toc-number">7.</span> <span class="toc-text">2.8 GloVe 词向量（GloVe Word Vectors）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-9-情绪分类（Sentiment-Classification）"><span class="toc-number">8.</span> <span class="toc-text">2.9 情绪分类（Sentiment Classification）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#简单模型"><span class="toc-number">8.1.</span> <span class="toc-text">简单模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RNN模型（many-to-one）"><span class="toc-number">8.2.</span> <span class="toc-text">RNN模型（many-to-one）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-10-词嵌入除偏（Debiasing-Word-Embeddings）"><span class="toc-number">9.</span> <span class="toc-text">2.10 词嵌入除偏（Debiasing Word Embeddings）</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
         
     </div>
 </aside>
